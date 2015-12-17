@@ -1,0 +1,13 @@
+#环境准备
+before_script:
+  - gulp clean
+  - npm install
+
+#构建
+gulp_build:
+  stage: build
+  script:
+    - gulp
+  tags:
+    - node
+    - gulp

@@ -1,0 +1,15 @@
+#jetbrains ide
+*.iml
+.idea
+
+#nodejs
+node_modules
+
+#babel compiled js
+index.js
+index.js.map
+src/**/*.js
+src/**/*.js.map
+
+#gulp dist
+dist
