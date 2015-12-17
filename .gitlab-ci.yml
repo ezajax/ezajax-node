@@ -1,13 +1,13 @@
 #环境准备
 before_script:
-  - gulp clean
   - npm install
+  - GULP=./node_modules/.bin/gulp
+  - GULP clean
 
 #构建
 gulp_build:
   stage: build
   script:
-    - gulp
+    - GULP
   tags:
     - node
-    - gulp
