@@ -39,5 +39,8 @@
     "gulp-clean": "^0.3.1",
     "gulp-minify": "0.0.5",
     "gulp-uglify": "^1.5.1"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.3.19"
   }
 }
