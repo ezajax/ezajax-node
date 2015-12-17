@@ -2,12 +2,12 @@
 before_script:
   - npm install
   - GULP=./node_modules/.bin/gulp
-  - GULP clean
+  - $GULP clean
 
 #构建
 gulp_build:
   stage: build
   script:
-    - GULP
+    - $GULP
   tags:
     - node
