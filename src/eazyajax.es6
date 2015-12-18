@@ -15,9 +15,13 @@ import {load as ajaxLoader} from './container';
  * @returns {Promise.<Function>}    express中间件
  */
 export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), option = {}) {
-    //加载和扫描模块
-    await ajaxLoader(ajaxModuleRoot);
-    D('模块加载完毕');
+    try {
+        //加载和扫描模块
+        await ajaxLoader(ajaxModuleRoot);
+        D('模块加载完毕');
+    } catch (error) {
+        return Promise.reject(error);
+    }
 
     //返回一个express中间件
     return Promise.resolve(function (req, res, next) {

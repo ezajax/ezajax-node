@@ -4,5 +4,34 @@
  */
 
 import eazyajax from './src/eazyajax';
+import util from 'util';
 
-module.exports = eazyajax;
+/**
+ * 包装方法,将eazyajax包装一下共外部使用
+ * @param path      路径
+ * @param option    选项
+ * @param callback  回调
+ */
+module.exports = function (path, option, callback) {
+    if (util.isFunction(path)) {
+        callback = path;
+        path = null;
+    } else if (util.isFunction(option)) {
+        callback = option;
+        option = undefined;
+    }
+
+    if (callback) {
+        try {
+            eazyajax(path, option).then((middleware)=> {
+                callback(null, middleware);
+            }).catch((error)=> {
+                callback(error, null);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    } else {
+        return eazyajax(path, option);
+    }
+};
