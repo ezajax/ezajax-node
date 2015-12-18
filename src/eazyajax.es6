@@ -10,9 +10,9 @@ import {load as ajaxLoader} from './container';
  * 根据路径和配置,初始化eazyajax环境
  * 并返回express的中间件
  *
- * @param ajaxModuleRoot    ajax模块的根路径
- * @param option            选项
- * @returns {Promise.<T>}      express中间件
+ * @param ajaxModuleRoot            ajax模块的根路径
+ * @param option                    选项
+ * @returns {Promise.<Function>}    express中间件
  */
 export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), option = {}) {
     //加载和扫描模块
@@ -21,5 +21,6 @@ export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax')
 
     //返回一个express中间件
     return Promise.resolve(function (req, res, next) {
+        res.send('hello eazyajax');
     });
 }

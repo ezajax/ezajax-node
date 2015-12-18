@@ -1,14 +1,33 @@
 /**
- * 用例
+ * 使用例子演示
  * Created by demon on 15-12-18.
  */
+import http from 'http';
+import express from 'express';
+import path from 'path';
+import {debug as D,warn as W,error as E} from '../src/utils/logger';
 
 import eazyajax from '../index';
 
-((async function () {
+(async function () {
     try {
-        await eazyajax();
+        //初始化express
+        var app = express();
+
+        //初始化eazyajax
+        eazyajax().then((middleware)=> {
+            app.use(middleware);
+        });
+
+        //初始化服务
+        var port = 3000;
+        var server = http.createServer(app);
+        //服务器开始监听
+        server.listen(port);
+
+        server.on('error', error=> E(error));
+        server.on('listening', ()=> D(`服务器监听 ${server.address().port} 端口`));
     } catch (error) {
-        console.log(error.message);
+        E(error.message);
     }
-}))();
+})();
