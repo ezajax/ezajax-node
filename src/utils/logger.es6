@@ -3,8 +3,8 @@
  * Created by demon on 15-12-18.
  */
 
-module.exports.debug = message => console.log(message);
+module.exports.debug = console.log;
 
-module.exports.warn = message=>console.warn(message);
+module.exports.warn = console.warn;
 
-module.exports.error = message=>console.error(message);
+module.exports.error = console.error;
