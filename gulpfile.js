@@ -12,12 +12,22 @@ var config = {
     }
 };
 
-//ES6 to ES5 转换
+//ES6 to ES5 转换,核心库代码
 gulp.task('babel', ['clean'], function () {
     return gulp.src(
         [
             'index.es6',
             'src/**/*.es6'
+        ], {base: './'})
+        .pipe(babel(config.babel))
+        .pipe(gulp.dest(config.dist));
+});
+
+//ES6 to ES5 转换,用例代码
+gulp.task('babel-example', ['clean'], function () {
+    return gulp.src(
+        [
+            'example/**/*.es6'
         ], {base: './'})
         .pipe(babel(config.babel))
         .pipe(gulp.dest(config.dist));
@@ -49,5 +59,11 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
+//构建核心库
+gulp.task('build', ['uglify', 'files']);
+
+//构建用例
+gulp.task('build-example', ['uglify', 'babel-example', 'files']);
+
 //默认任务
-gulp.task('default', ['uglify', 'files']);
+gulp.task('default', ['build']);
