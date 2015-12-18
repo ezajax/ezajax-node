@@ -1,12 +1,8 @@
 /**
- * Modules Exporter
+ * Module initer and Modules exporter
  * Created by demon on 15-12-17.
  */
 
-import sayHello from './src/eazyajax';
+import eazyajax from './src/eazyajax';
 
-//main function
-(async function () {
-    var content = await sayHello('demon');
-    console.log(content);
-})();
+module.exports = eazyajax;
