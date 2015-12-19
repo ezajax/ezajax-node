@@ -15,10 +15,10 @@ export default async function (req, res, next) {
 
     //客户端JS请求的分发
     switch (fileName) {
-        case 'angular-eazyajax.js':
-            res.send('angular-eazyajax.js');
+        case 'angular.js':
+            res.send('angular.js');
             break;
-        case 'eazyajax.js':
+        case 'normal.js':
             try {
                 let jsContent = await normalJSGenerator();
                 res.send(jsContent);
