@@ -4,5 +4,9 @@
  */
 
 export function getName(id) {
-    return id == 1 ? 'demon' : 'other';
+    return "toonew" + id;
 }
+getName.perms = [function (id) {
+    console.log(id);
+    return true;
+}];

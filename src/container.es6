@@ -59,6 +59,14 @@ class Container extends EventEmitter {
             }
         }
     }
+
+    /**
+     * 返回所有已经扫描到的模块
+     * @returns {Map}   模块名称到模块的映射map
+     */
+    getModules() {
+        return moduleCache;
+    }
 }
 
 //导出单例
