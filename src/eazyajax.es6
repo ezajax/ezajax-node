@@ -4,7 +4,7 @@
  */
 import path from 'path';
 import {debug as D, warn as W, error as E} from './utils/logger';
-import {load as ajaxLoader} from './container';
+import container from './container';
 
 /**
  * 根据路径和配置,初始化eazyajax环境
@@ -17,7 +17,7 @@ import {load as ajaxLoader} from './container';
 export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), option = {}) {
     try {
         //加载和扫描模块
-        await ajaxLoader(ajaxModuleRoot);
+        await container.load(ajaxModuleRoot);
         D('模块加载完毕');
     } catch (error) {
         return Promise.reject(error);
