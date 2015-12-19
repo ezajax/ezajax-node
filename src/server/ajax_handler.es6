@@ -21,7 +21,9 @@ export default async function (req, res, next) {
                 var method = module[methodName];
 
                 //获取请求参数
-                var args = JSON.parse(Object.assign({}, req.query, req.body).args);
+                var httpParams = Object.assign({}, req.query, req.body);
+                //ajax方法调用参数
+                var args = httpParams.args ? JSON.parse(httpParams.args) : null;
                 //构造调用上下文
                 var context = {req, res, session: req.session};
 
