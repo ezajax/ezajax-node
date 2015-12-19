@@ -27,13 +27,8 @@ class Container extends EventEmitter {
      * @returns {*}         null
      */
     async load(modulePath) {
-        try {
-            //读取文件信息
-            var stats = await fs.statAsync(modulePath);
-        }
-        catch (error) {
-            return Promise.reject(new Error(`模块路径 ${modulePath} 不存在`));
-        }
+        //读取文件信息
+        var stats = await fs.statAsync(modulePath);
 
         //判断文件的类型
         if (stats.isDirectory()) {
@@ -42,7 +37,7 @@ class Container extends EventEmitter {
             logger.debug(`目录 ${modulePath} 下找到 ${files.length} 个文件`);
             //形成承诺数组
             var promises = files.map(filename => this.load(path.join(modulePath, filename)));
-            return Promise.all(promises);
+            await Promise.all(promises);
         } else {
             //如果是个普通的文件,先判断是不是JS文件
             if (modulePath.endsWith('.js')) {
@@ -52,7 +47,7 @@ class Container extends EventEmitter {
                 //检查模块是否已经被加载,也有可能是重名的情况
                 if (moduleCache.has(moduleName)) {
                     logger.warn(`模块 ${moduleName} 已经被加载,请检查重名`);
-                    return Promise.resolve();
+                    return
                 }
 
                 //加载模块
@@ -61,7 +56,6 @@ class Container extends EventEmitter {
                 moduleCache.set(moduleName, jsModule);
                 logger.debug(`文件 ${modulePath} 中加载了 ${moduleName} 模块`);
                 this.emit('module.loaded', modulePath);
-                return Promise.resolve();
             }
         }
     }

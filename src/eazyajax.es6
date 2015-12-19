@@ -21,20 +21,16 @@ var router = express.Router();
  * @returns {Promise.<Function>}    express中间件
  */
 export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), option = {}) {
-    try {
-        //加载和扫描模块
-        await container.load(ajaxModuleRoot);
-        D('模块加载完毕');
+    //加载和扫描模块
+    await container.load(ajaxModuleRoot);
+    D('模块加载完毕');
 
-        //注册JS文件处理器
-        router.use('*.js', jsHandler);
+    //注册JS文件处理器
+    router.use('*.js', jsHandler);
 
-        //注册ajax调用处理器
-        router.use('*.ac', ajaxHandler);
-    } catch (error) {
-        return Promise.reject(error);
-    }
+    //注册ajax调用处理器
+    router.use('*.ac', ajaxHandler);
 
     //返回一个express中间件
-    return Promise.resolve(router);
+    return router;
 }
