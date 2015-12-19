@@ -15,8 +15,13 @@ import util from 'util';
 module.exports = function (path, option, callback) {
     if (util.isFunction(path)) {
         callback = path;
-        path = null;
-    } else if (util.isFunction(option)) {
+        path = undefined;
+    }
+    if (util.isObject(path)) {
+        option = path;
+        path = undefined;
+    }
+    if (util.isFunction(option)) {
         callback = option;
         option = undefined;
     }

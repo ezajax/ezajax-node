@@ -20,16 +20,16 @@ var router = express.Router();
  * @param option                    选项
  * @returns {Promise.<Function>}    express中间件
  */
-export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), option = {}) {
+export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root} = {root: 'eazyajax'}) {
     //加载和扫描模块
     await container.load(ajaxModuleRoot);
     D('模块加载完毕');
 
     //注册JS文件处理器
-    router.use('*.js', jsHandler);
+    router.use(`/${root}/*.js`, jsHandler);
 
     //注册ajax调用处理器
-    router.use('*.ac', ajaxHandler);
+    router.use(`/${root}/:moduleName/:methodName.ac`, ajaxHandler);
 
     //返回一个express中间件
     return router;
