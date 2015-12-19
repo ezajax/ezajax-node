@@ -6,9 +6,10 @@
 import path from 'path';
 
 import {D,W,E} from '../utils/logger';
+import normalJSGenerator from './normal/js_generator';
 
 export default async function (req, res, next) {
-    
+
     //拿到文件名,用来做区别分发
     var fileName = path.basename(req.baseUrl);
 
@@ -18,7 +19,12 @@ export default async function (req, res, next) {
             res.send('angular-eazyajax.js');
             break;
         case 'eazyajax.js':
-            res.send('eazyajax.js');
+            try {
+                let jsContent = await normalJSGenerator();
+                res.send(jsContent);
+            } catch (error) {
+                E(error.message);
+            }
             break;
         default:
             res.statusCode = 404;
