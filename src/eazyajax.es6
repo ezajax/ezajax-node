@@ -8,7 +8,11 @@ import express from 'express'
 import {debug as D, warn as W, error as E} from './utils/logger';
 import container from './container';
 import jsHandler from './client/js_handler';
-import ajaxHandler from './server/ajax_handler';
+
+import contextInit from './server/context_init';
+import invokeCheck from './server/invoke_check';
+import permissionCheck from './server/permission_check';
+import invoker from './server/invoker';
 
 var router = express.Router();
 
@@ -29,7 +33,13 @@ export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax')
     router.use(`/${root}/*.js`, jsHandler);
 
     //注册ajax调用处理器
-    router.use(`/${root}/:moduleName/:methodName.ac`, ajaxHandler);
+    router.use(
+        `/${root}/:moduleName/:methodName.ac`,
+        contextInit,
+        invokeCheck,
+        permissionCheck,
+        invoker
+    );
 
     //返回一个express中间件
     return router;
