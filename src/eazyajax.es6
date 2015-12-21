@@ -5,7 +5,7 @@
 import path from 'path';
 import express from 'express'
 
-import {debug as D, warn as W, error as E} from './utils/logger';
+import {D, W, E} from './utils/logger';
 import container from './container';
 import jsHandler from './client/js_handler';
 

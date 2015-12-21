@@ -5,7 +5,7 @@
 import http from 'http';
 import express from 'express';
 import path from 'path';
-import {debug as D,warn as W,error as E} from '../src/utils/logger';
+import {D, W, E} from '../src/utils/logger';
 
 import eazyajax from '../index';
 
