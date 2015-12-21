@@ -56,8 +56,8 @@ gulp.task('files', ['clean'], function () {
 });
 
 //测试任务
-gulp.task('test', ['babel-test'], function () {
-    return gulp.src('test/**/*.js', {read: false})
+gulp.task('test', ['babel-core', 'babel-test'], function () {
+    return gulp.src(config.dist + '/test/**/*.js', {read: false})
         .pipe(mocha());
 });
 
