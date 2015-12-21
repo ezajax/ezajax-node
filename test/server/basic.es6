@@ -7,19 +7,14 @@ import express from 'express';
 import path from 'path';
 import should from 'should';
 
-import eazyajax from '../../index';
+import serverInit from '../lib/server_init';
 
 var app;
 
 //先启动服务器
 before(async(done)=> {
     try {
-        //初始化express
-        app = express();
-
-        //初始化eazyajax
-        var middleware = await eazyajax(path.join(__dirname, '../', 'ajax'));
-        app.use(middleware);
+        app = await serverInit();
         done();
     } catch (err) {
         done(err);
