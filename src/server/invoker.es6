@@ -13,19 +13,19 @@ export default function (req, res) {
         //判断函数有没有返回值
         if (returnValue == null || returnValue == undefined) {
             //如果没有,直接返回一个空json
-            res.sendReturnValue({});
+            res.sendReturnValue();
         } else {
             //如果有返回值,先判断是不是一个承诺
             if (returnValue.then) {
                 //如果是一个承诺,则异步返回
                 returnValue.then((value)=> {
-                    res.sendReturnValue({returnValue: value});
+                    res.sendReturnValue(value);
                 }).catch((error)=> {
                     res.sendError(-5, error.message);
                 });
             } else {
                 //不是承诺,直接返回结果
-                res.sendReturnValue({returnValue});
+                res.sendReturnValue(returnValue);
             }
         }
     } catch (error) {
