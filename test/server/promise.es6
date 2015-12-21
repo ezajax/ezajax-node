@@ -24,7 +24,7 @@ describe('承诺测试', ()=> {
 
     it('没有返回值', (done)=> {
         request(app)
-            .get('/eazyajax/promise/getNull.ac')
+            .get('/eazyajax/promise/getNone.ac')
             .expect(200)
             .expect('Content-Type', 'application/json; charset=utf-8')
             .end((err, res)=> {
@@ -33,6 +33,21 @@ describe('承诺测试', ()=> {
                 var result = JSON.parse(res.text);
                 result.should.not.property('error');
                 result.should.not.property('returnValue');
+                done();
+            });
+    });
+
+    it('返回空值', (done)=> {
+        request(app)
+            .get('/eazyajax/promise/getNull.ac')
+            .expect(200)
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .end((err, res)=> {
+                if (err)done(err);
+
+                var result = JSON.parse(res.text);
+                result.should.not.property('error');
+                result.should.property('returnValue', null);
                 done();
             });
     });

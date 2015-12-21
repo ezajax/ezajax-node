@@ -6,9 +6,19 @@
 /**
  * 没有返回值
  */
-export function getNull() {
+export function getNone() {
     return new Promise((resolve)=> {
         setTimeout(()=>resolve(), 20);
+    });
+}
+
+/**
+ * 返回一个空
+ * @returns {Promise}      空值
+ */
+export function getNull() {
+    return new Promise((resolve)=> {
+        setTimeout(()=>resolve(null), 20);
     });
 }
 

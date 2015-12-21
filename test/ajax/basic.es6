@@ -6,8 +6,16 @@
 /**
  * 没有返回值
  */
-export function getNull() {
+export function getNone() {
 
+}
+
+/**
+ * 返回一个空
+ * @returns {null}      空值
+ */
+export function getNull() {
+    return null;
 }
 
 /**

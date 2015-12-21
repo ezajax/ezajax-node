@@ -11,9 +11,12 @@ export default function (req, res) {
         let returnValue = context.method.apply(context, args);
 
         //判断函数有没有返回值
-        if (returnValue == null || returnValue == undefined) {
-            //如果没有,直接返回一个空json
+        if (returnValue === undefined) {
+            //返回自定义
             res.sendReturnValue(undefined);
+        } else if (returnValue === null) {
+            //返回空值
+            res.sendReturnValue(null);
         } else {
             //如果有返回值,先判断是不是一个承诺
             if (returnValue.then) {
