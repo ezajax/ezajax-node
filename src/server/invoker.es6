@@ -13,7 +13,7 @@ export default function (req, res) {
         //判断函数有没有返回值
         if (returnValue == null || returnValue == undefined) {
             //如果没有,直接返回一个空json
-            res.sendReturnValue();
+            res.sendReturnValue(undefined);
         } else {
             //如果有返回值,先判断是不是一个承诺
             if (returnValue.then) {
