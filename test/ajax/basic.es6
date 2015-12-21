@@ -19,19 +19,19 @@ export function getNull() {
 }
 
 /**
- * 返回一个数字
- * @returns {number}    数字3.14
- */
-export function getNumber() {
-    return 3.14;
-}
-
-/**
  * 返回一个布尔值
  * @returns {boolean}
  */
 export function getBoolean() {
     return false;
+}
+
+/**
+ * 返回一个数字
+ * @returns {number}    数字3.14
+ */
+export function getNumber() {
+    return 3.14;
 }
 
 /**
