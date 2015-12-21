@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var clean = require('gulp-clean');
-var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
+var istanbul = require('gulp-istanbul');
 
 //属性配置
 var config = {
@@ -21,7 +21,6 @@ gulp.task('babel-core', ['clean'], function () {
             'src/**/*.es6'
         ], {base: './'})
         .pipe(babel(config.babel))
-        .pipe(uglify())
         .pipe(gulp.dest(config.dist));
 });
 
@@ -55,15 +54,29 @@ gulp.task('files', ['clean'], function () {
         .pipe(gulp.dest(config.dist));
 });
 
+//测试预处理任务
+gulp.task('pre-test', ['babel-core', 'babel-test'], function () {
+    return gulp.src(
+        [
+            config.dist + '/src/server/**/*.js',
+            config.dist + '/src/utils/**/*.js',
+            config.dist + '/src/*.js'
+        ])
+        .pipe(istanbul())
+        .pipe(istanbul.hookRequire());
+});
+
 //测试任务
-gulp.task('test', ['babel-core', 'babel-test'], function () {
+gulp.task('test', ['pre-test'], function () {
     return gulp.src(config.dist + '/test/**/*.js', {read: false})
-        .pipe(mocha());
+        .pipe(mocha())
+        .pipe(istanbul.writeReports())
+        .pipe(istanbul.enforceThresholds({thresholds: {global: 20}}));
 });
 
 //清理文件
 gulp.task('clean', function () {
-    return gulp.src(config.dist, {read: false})
+    return gulp.src([config.dist, 'coverage'], {read: false})
         .pipe(clean());
 });
 
