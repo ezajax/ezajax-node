@@ -32,6 +32,7 @@ describe('基本测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse(res.text);
+                result.should.not.property('error');
                 result.should.not.property('returnValue');
                 done();
             });
@@ -46,6 +47,7 @@ describe('基本测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue', 'eazyajax');
                 done();
             });
@@ -60,6 +62,7 @@ describe('基本测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue', 3.14);
                 done();
             });
@@ -74,7 +77,9 @@ describe('基本测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue');
+
                 var returnValue = result.returnValue;
                 returnValue.should.be.a.Array
                 returnValue.should.eql([1, 2, 3, 4, 'five', null]);
@@ -92,6 +97,7 @@ describe('基本测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue');
 
                 var returnValue = result.returnValue;
