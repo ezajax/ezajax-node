@@ -10,12 +10,14 @@ export default function (req, res, next) {
     res.sendReturnValue = function (returnValue) {
         //时间序列化器
         var ajaxReturnValueString = JSON.stringify({returnValue});
+        res.contentType('application/json');
         res.send(ajaxReturnValueString);
     };
 
     //发送异常信息
     res.sendError = function (code, message = "未知错误") {
         message = message === '' ? '未知错误' : message;
+        res.contentType('application/json');
         res.send(JSON.stringify({error: {code, message}}));
     };
 
