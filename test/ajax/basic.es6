@@ -27,6 +27,14 @@ export function getNumber() {
 }
 
 /**
+ * 返回一个布尔值
+ * @returns {boolean}
+ */
+export function getBoolean() {
+    return false;
+}
+
+/**
  * 返回一个字符串
  * @returns {string}    字符串'eazyajax'
  */

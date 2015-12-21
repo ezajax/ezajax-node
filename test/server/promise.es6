@@ -52,16 +52,17 @@ describe('承诺测试', ()=> {
             });
     });
 
-    it('返回值为字符串', (done)=> {
+    it('返回值为布尔', (done)=> {
         request(app)
-            .get('/eazyajax/promise/getString.ac')
+            .get('/eazyajax/promise/getBoolean.ac')
             .expect(200)
             .expect('Content-Type', 'application/json; charset=utf-8')
             .end((err, res)=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
-                result.should.property('returnValue', 'eazyajax');
+                result.should.not.property('error');
+                result.should.property('returnValue', false);
                 done();
             });
     });
@@ -75,7 +76,23 @@ describe('承诺测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue', 3.14);
+                done();
+            });
+    });
+
+    it('返回值为字符串', (done)=> {
+        request(app)
+            .get('/eazyajax/promise/getString.ac')
+            .expect(200)
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .end((err, res)=> {
+                if (err)done(err);
+
+                var result = JSON.parse((res.text));
+                result.should.not.property('error');
+                result.should.property('returnValue', 'eazyajax');
                 done();
             });
     });
@@ -89,6 +106,7 @@ describe('承诺测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue');
                 var returnValue = result.returnValue;
                 returnValue.should.be.a.Array
@@ -107,6 +125,7 @@ describe('承诺测试', ()=> {
                 if (err)done(err);
 
                 var result = JSON.parse((res.text));
+                result.should.not.property('error');
                 result.should.property('returnValue');
 
                 var returnValue = result.returnValue;

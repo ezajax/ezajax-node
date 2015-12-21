@@ -23,6 +23,16 @@ export function getNull() {
 }
 
 /**
+ * 返回一个布尔值
+ * @returns {Promise}       布尔值false
+ */
+export function getBoolean() {
+    return new Promise((resolve)=> {
+        setTimeout(()=>resolve(false), 20);
+    });
+}
+
+/**
  * 返回一个数字
  * @returns {Promise}    数字3.14
  */
