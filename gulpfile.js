@@ -13,13 +13,14 @@ var config = {
 };
 
 //ES6 to ES5 转换,核心库代码
-gulp.task('babel', ['clean'], function () {
+gulp.task('babel-core', ['clean'], function () {
     return gulp.src(
         [
             'index.es6',
             'src/**/*.es6'
         ], {base: './'})
         .pipe(babel(config.babel))
+        .pipe(uglify())
         .pipe(gulp.dest(config.dist));
 });
 
@@ -33,22 +34,12 @@ gulp.task('babel-example', ['clean'], function () {
         .pipe(gulp.dest(config.dist));
 });
 
-//压缩JS
-gulp.task('uglify', ['babel'], function () {
-    gulp.src(
-        [
-            'index.js',
-            'src/**/*.js'
-        ], {base: './'})
-        .pipe(uglify())
-        .pipe(gulp.dest(config.dist))
-});
-
 //文件拷贝
 gulp.task('files', ['clean'], function () {
     return gulp.src(
         [
-            'package.json'
+            'package.json',
+            'src/**/*.hbs'
         ], {base: './'})
         .pipe(gulp.dest(config.dist));
 });
@@ -60,10 +51,10 @@ gulp.task('clean', function () {
 });
 
 //构建核心库
-gulp.task('build', ['uglify', 'files']);
+gulp.task('build-core', ['babel-core', 'files']);
 
 //构建用例
-gulp.task('build-example', ['uglify', 'babel-example', 'files']);
+gulp.task('build-all', ['babel-core', 'babel-example', 'files']);
 
 //默认任务
-gulp.task('default', ['build']);
+gulp.task('default', ['build-core']);

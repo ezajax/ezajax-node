@@ -8,6 +8,6 @@ before_script:
 gulp_build:
   stage: build
   script:
-    - $GULP
+    - $GULP build-all
   tags:
     - node
