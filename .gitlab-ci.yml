@@ -11,3 +11,10 @@ gulp_build:
     - $GULP build-all
   tags:
     - node
+
+test:
+  stage: test
+  script:
+    - $GULP test
+  tags:
+    - node

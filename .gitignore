@@ -12,6 +12,9 @@ src/**/*.js
 src/**/*.js.map
 example/**/*.js
 example/**/*.js.map
+test/**/*.js
+test/**/*.js.map
+
 
 #gulp dist
 dist

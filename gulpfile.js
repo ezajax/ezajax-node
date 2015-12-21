@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var babel = require('gulp-babel');
 var clean = require('gulp-clean');
 var uglify = require('gulp-uglify');
+var mocha = require('gulp-mocha');
 
 //属性配置
 var config = {
@@ -34,6 +35,16 @@ gulp.task('babel-example', ['clean'], function () {
         .pipe(gulp.dest(config.dist));
 });
 
+//ES6 to ES5 转换,测试代码
+gulp.task('babel-test', ['clean'], function () {
+    return gulp.src(
+        [
+            'test/**/*.es6'
+        ], {base: './'})
+        .pipe(babel(config.babel))
+        .pipe(gulp.dest(config.dist));
+});
+
 //文件拷贝
 gulp.task('files', ['clean'], function () {
     return gulp.src(
@@ -42,6 +53,12 @@ gulp.task('files', ['clean'], function () {
             'src/**/*.hbs'
         ], {base: './'})
         .pipe(gulp.dest(config.dist));
+});
+
+//测试任务
+gulp.task('test', ['babel-test'], function () {
+    return gulp.src('test/**/*.js', {read: false})
+        .pipe(mocha());
 });
 
 //清理文件
@@ -54,7 +71,7 @@ gulp.task('clean', function () {
 gulp.task('build-core', ['babel-core', 'files']);
 
 //构建用例
-gulp.task('build-all', ['babel-core', 'babel-example', 'files']);
+gulp.task('build-all', ['babel-core', 'babel-example', 'babel-test', 'files']);
 
 //默认任务
 gulp.task('default', ['build-core']);
