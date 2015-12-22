@@ -71,7 +71,7 @@ gulp.task('test', ['pre-test'], function () {
     return gulp.src(config.dist + '/test/**/*.js', {read: false})
         .pipe(mocha())
         .pipe(istanbul.writeReports())
-        .pipe(istanbul.enforceThresholds({thresholds: {global: 90}}));
+        .pipe(istanbul.enforceThresholds({thresholds: {global: 80}}));
 });
 
 //清理文件

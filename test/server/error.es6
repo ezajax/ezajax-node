@@ -73,7 +73,7 @@ describe('异常调用测试', ()=> {
             });
     });
 
-    it('带id和message的基本异常', (done)=> {
+    it('带code和message的基本异常', (done)=> {
         request(app)
             .get('/eazyajax/throw_error/throwErrorWithCodeAndMessage.ac?args=[1]')
             .expect(200)
@@ -90,7 +90,7 @@ describe('异常调用测试', ()=> {
             });
     });
 
-    it('带id和message的承诺异常', (done)=> {
+    it('带code和message的承诺异常', (done)=> {
         request(app)
             .get('/eazyajax/throw_error/throwErrorWithCodeAndMessageInPromise.ac?args=[1]')
             .expect(200)
