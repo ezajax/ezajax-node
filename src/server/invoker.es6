@@ -24,7 +24,11 @@ export default function (req, res) {
                 returnValue.then((value)=> {
                     res.sendReturnValue(value);
                 }).catch((error)=> {
-                    res.sendError(-5, error.message);
+                    if (error.code == null)
+                        error.code = -5;
+                    if (error.message == null || error.message == '')
+                        error.message = '未知错误';
+                    res.sendError(error.code, error.message);
                 });
             } else {
                 //不是承诺,直接返回结果
@@ -32,6 +36,10 @@ export default function (req, res) {
             }
         }
     } catch (error) {
-        res.sendError(-1, error.message);
+        if (error.code == null)
+            error.code = -5;
+        if (error.message == null || error.message == '')
+            error.message = '未知错误';
+        res.sendError(error.code, error.message);
     }
 }

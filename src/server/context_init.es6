@@ -15,8 +15,7 @@ export default function (req, res, next) {
     };
 
     //发送异常信息
-    res.sendError = function (code, message = "未知错误") {
-        message = message === '' ? '未知错误' : message;
+    res.sendError = function (code, message) {
         res.contentType('application/json');
         res.send(JSON.stringify({error: {code, message}}));
     };
