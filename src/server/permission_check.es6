@@ -49,12 +49,14 @@ export default async function (req, res, next) {
         if (checkPromises.length) {
             var checkValues = await Promise.all(checkPromises);
             for (let checkValue of checkValues) {
-                if (!checkValue) {
-                    //检查不通过,直接返回
-                    res.sendError(-4, `你不具备调用方法 ${req.eazyajax.moduleName}.${req.eazyajax.methodName} 的权限`);
-                    return false;
+                if (checkValue) {
+                    //检查通过
+                    return next();
                 }
             }
+            //检查不通过,直接返回
+            res.sendError(-4, `你不具备调用方法 ${req.eazyajax.moduleName}.${req.eazyajax.methodName} 的权限`);
+            return false;
         }
 
         //检查通过
