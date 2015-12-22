@@ -59,7 +59,7 @@ export default async function (req, res, next) {
                 }
             }
             //检查不通过,直接返回
-            res.sendError(-4, `你不具备调用方法 ${req.eazyajax.moduleName}.${req.eazyajax.methodName} 的权限`);
+            res.sendError(-3, `你不具备调用方法 ${req.eazyajax.moduleName}.${req.eazyajax.methodName} 的权限`);
             return false;
         }
 

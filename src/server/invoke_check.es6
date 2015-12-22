@@ -21,7 +21,7 @@ export default function (req, res, next) {
 
     //检查方法是否存在
     if (!util.isFunction(modules.get(context.moduleName)[context.methodName])) {
-        res.sendError(-3, `方法 ${context.moduleName}.${context.methodName} 找不到`);
+        res.sendError(-2, `方法 ${context.moduleName}.${context.methodName} 找不到`);
         return false;
     }
 
