@@ -6,17 +6,32 @@
 /********权限定义-这一部分可以定义在外部,作为通用权限验证的定义********/
 //管理员权限的验证方式
 var admin = function () {
-    return this.session.user.role === 'admin';
+    var self = this;
+    return new Promise((resolve, reject)=> {
+        setTimeout(()=> {
+            try {
+                resolve(self.session.user.role === 'admin');
+            } catch (error) {
+                reject(error);
+            }
+        }, 20);
+    });
 };
 
 //用户权限的验证方式
 var user = function () {
-    return !!this.session.user;
+    if (!!this.session.user)
+        return Promise.resolve(true);
+    else
+        return Promise.reject();
 };
 
 //个人权限的验证方式
 var myself = function (username) {
-    return username === this.session.user.username;
+    if (username === this.session.user.username)
+        return true;
+    else
+        throw new Error('a cute error');
 };
 
 //任意权限
