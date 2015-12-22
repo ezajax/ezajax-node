@@ -11,39 +11,43 @@ export default async function (req, res, next) {
         var module = req.eazyajax.module;
         var method = req.eazyajax.method;
 
-        var checkPromises = [];
+        var permissions = [];
 
-        //列举module需要的权限
-        if (module.permission) {
-            let modulePermissions = module.permission;
-            if (util.isArray(modulePermissions)) {
-                let promises = modulePermissions.map((permission)=> {
-                    let returnValue = permission.apply(req.eazyajax, req.eazyajax.args);
-                    if (returnValue) {
-                        return returnValue.then ? returnValue : Promise.resolve(returnValue);
-                    } else {
-                        return Promise.resolve(false);
-                    }
-                });
-                checkPromises = checkPromises.concat(promises);
-            }
+        //将模块和方法的权限全部存入一个数组
+        if (util.isArray(module.permission)) {
+            module.permission.forEach((permission)=> {
+                if (permissions.indexOf(permission) === -1)
+                    permissions.push(permission);
+            });
+        }
+        if (util.isArray(method.permission)) {
+            method.permission.forEach((permission)=> {
+                if (permissions.indexOf(permission) === -1)
+                    permissions.push(permission);
+            });
         }
 
-        //列举method需要的权限
-        if (method.permission) {
-            let methodPermissions = method.permission;
-            if (util.isArray(methodPermissions)) {
-                let promises = methodPermissions.map((permission)=> {
-                    let returnValue = permission.apply(req.eazyajax, req.eazyajax.args);
-                    if (returnValue) {
-                        return returnValue.then ? returnValue : Promise.resolve(returnValue);
-                    } else {
-                        return Promise.resolve(false);
-                    }
-                });
-                checkPromises = checkPromises.concat(promises);
+        //将所有的调用结果映射为承诺数组
+        var checkPromises = permissions.map((permission)=> {
+            try {
+                //调用权限验证函数
+                var returnValue = permission.apply(req.eazyajax, req.eazyajax.args);
+            } catch (error) {
+                //如果调用过程中发生异常,可以认为返回了false
+                return Promise.resolve(false);
             }
-        }
+
+            //判断返回值的类型
+            if (returnValue.then) {
+                //如果是承诺
+                return new Promise((resolve)=> {
+                    returnValue.then((value)=>resolve(value)).catch(()=> resolve(false));
+                });
+            } else {
+                //如果是值,直接返回
+                return Promise.resolve(returnValue);
+            }
+        });
 
         //统一检查
         if (checkPromises.length) {
