@@ -4,7 +4,7 @@
  */
 
 export function getName(id) {
-    return `toonew ${id}`;
+    return id;
 }
 getName.perms = [function (id) {
     console.log(id);

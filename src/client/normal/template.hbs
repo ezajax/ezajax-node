@@ -1,1 +1,38 @@
-normal ajax
+    //eazyajax 调用根路径
+    var eazyajaxRoot = '{{eazyajaxRoot}}';
+
+{{#each moduleStubs as |module|}}
+    var {{module.invokeName}} = {};
+
+    {{#each module.methods as |method|}}
+        {{module.invokeName}}.{{method.name}} = function(){
+            var url = eazyajaxRoot + '{{module.originName}}/{{method.name}}.ac';
+            var args = JSON.stringify(Array.prototype.slice.call(arguments));
+            return new Promise(function(resolve,reject){
+                _eazyajax({
+                    url:url,
+                    data:{
+                        args:args
+                    },
+                    success:function(data){
+                        //时间解析器
+                        var dateParse = function (key, value) {
+                            if (typeof value === 'string') {
+                                var segments = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d*)Z$/.exec(value);
+                                if (segments)
+                                    return new Date(Date.UTC(+segments[1], +segments[2] - 1, +segments[3], +segments[4],+segments[5], +segments[6], +segments[7]));
+                            }
+                            return value;
+                        };
+
+                        var json = JSON.parse(data,dateParse);
+                        console.log(json.returnValue.getMilliseconds());
+                    },
+                    error:function(){
+                        console.log('ajax error');
+                    }
+                });
+            });
+        }
+    {{/each}}
+{{/each}}

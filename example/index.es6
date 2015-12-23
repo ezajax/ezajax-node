@@ -14,6 +14,9 @@ import eazyajax from '../index';
         //初始化express
         var app = express();
 
+        //设定静态映射
+        app.use(express.static('web'));
+
         //初始化eazyajax
         eazyajax().then((middleware)=> {
             app.use(middleware);

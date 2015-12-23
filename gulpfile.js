@@ -49,7 +49,8 @@ gulp.task('files', ['clean'], function () {
     return gulp.src(
         [
             'package.json',
-            'src/**/*.hbs'
+            'src/**/*.hbs',
+            'src/**/*.jsfile'
         ], {base: './'})
         .pipe(gulp.dest(config.dist));
 });
