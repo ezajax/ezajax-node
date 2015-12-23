@@ -7,7 +7,7 @@ import express from 'express';
 import session from 'express-session';
 import path from 'path';
 
-import eazyajax from '../../index';
+import eazyajax from '../../../index';
 
 var app;
 

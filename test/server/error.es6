@@ -7,7 +7,7 @@ import express from 'express';
 import path from 'path';
 import should from 'should';
 
-import serverInit from '../lib/server_init';
+import serverInit from '../assets/lib/server_init';
 
 var app;
 

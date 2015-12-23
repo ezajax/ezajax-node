@@ -6,7 +6,7 @@ import request from 'supertest';
 import path from 'path';
 import should from 'should';
 
-import serverInit from '../lib/server_init';
+import serverInit from '../assets/lib/server_init';
 
 var app;
 var userSession, adminSession;
