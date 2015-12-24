@@ -1,12 +1,12 @@
-    //eazyajax 调用根路径
-    var eazyajaxRoot = '{{eazyajaxRoot}}';
+//eazyajax 调用根路径
+var __eazyajaxRoot = '{{eazyajaxRoot}}';
 
 {{#each moduleStubs as |module|}}
     var {{module.pascalcaseName}}Ajax = {};
 
     {{#each module.methods as |method|}}
         {{module.pascalcaseName}}Ajax.{{method.name}} = function(){
-            var url = eazyajaxRoot + '{{module.name}}/{{method.name}}.ac';
+            var url = __eazyajaxRoot + '{{module.name}}/{{method.name}}.ac';
             var args = Array.prototype.slice.call(arguments);
 
             if(args.length>0)
@@ -16,7 +16,7 @@
                 }
 
             var promise = new Promise(function(resolve,reject){
-                _eazyajax({
+                __eazyajax({
                     url:url,
                     data:{
                         args:JSON.stringify(args)
