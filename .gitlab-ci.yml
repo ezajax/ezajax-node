@@ -24,3 +24,15 @@ test:
     - $GULP test
   tags:
     - node
+
+#发布到npm仓库
+publish:
+  stage: deploy
+  script:
+    - $GULP build-core
+    - cd dist
+    - npm publish
+  only:
+    - /^v\d+.\d+.\d+.*$/
+  tags:
+    - node
