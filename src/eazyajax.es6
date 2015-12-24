@@ -4,6 +4,7 @@
  */
 import path from 'path';
 import express from 'express'
+import bodyParser from 'body-parser';
 
 import {D, W, E} from './utils/logger';
 import container from './container';
@@ -35,6 +36,8 @@ export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax')
     //注册ajax调用处理器
     router.use(
         `/${root}/:moduleName/:methodName.ac`,
+        bodyParser.json(),
+        bodyParser.urlencoded({extended: false}),
         contextInit,
         invokeCheck,
         permissionCheck,

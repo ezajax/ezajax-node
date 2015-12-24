@@ -4,7 +4,6 @@
  */
 import http from 'http';
 import express from 'express';
-import bodyParser from 'body-parser';
 import path from 'path';
 import {D, W, E} from '../src/utils/logger';
 
@@ -14,8 +13,6 @@ import eazyajax from '../index';
     try {
         //初始化express
         var app = express();
-        app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({extended: false}));
 
         //设定静态映射
         app.use(express.static('web'));
