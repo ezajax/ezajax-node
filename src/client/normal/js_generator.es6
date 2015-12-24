@@ -30,16 +30,15 @@ export default async function (eazyajaxRoot) {
     //遍历整个缓存
     for (var [moduleName,moduleInstance] of modulesCache) {
         var moduleStub = {
-            originName: moduleName,
-            invokeName: '',
+            name: moduleName,
+            pascalcaseName: '',
             methods: []
         };
 
-        //将模块名称变换一下 如:  a_module_name -> AModuleNameAjax
+        //将模块名称变换一下 如:  a_module_name -> AModuleName
         moduleName.split('_')
             .map(word=>word.substring(0, 1).toUpperCase() + word.substring(1))
-            .forEach(word=>moduleStub.invokeName += word);
-        moduleStub.invokeName += 'Ajax';
+            .forEach(word=>moduleStub.pascalcaseName += word);
 
         //遍历整个模块,处理其中的每一个方法
         for (var methodName in moduleInstance) {

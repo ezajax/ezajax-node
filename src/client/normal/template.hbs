@@ -2,11 +2,11 @@
     var eazyajaxRoot = '{{eazyajaxRoot}}';
 
 {{#each moduleStubs as |module|}}
-    var {{module.invokeName}} = {};
+    var {{module.pascalcaseName}}Ajax = {};
 
     {{#each module.methods as |method|}}
-        {{module.invokeName}}.{{method.name}} = function(){
-            var url = eazyajaxRoot + '{{module.originName}}/{{method.name}}.ac';
+        {{module.pascalcaseName}}Ajax.{{method.name}} = function(){
+            var url = eazyajaxRoot + '{{module.name}}/{{method.name}}.ac';
             var args = Array.prototype.slice.call(arguments);
 
             if(args.length>0)
