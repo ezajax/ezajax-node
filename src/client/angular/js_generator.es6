@@ -9,14 +9,14 @@ import path from 'path';
 import util from 'util';
 
 import {D,W,E} from '../../utils/logger';
-import container from '../../container';
+import {getModules} from '../../container';
 
 var fs = bluebird.promisifyAll(require('fs'));
 
 export default async function (eazyajaxRoot) {
 
     //从容器中读取已经加载的模块
-    var modulesCache = container.getModules();
+    var modulesCache = getModules();
     //模块存根
     var moduleStubs = [];
 
