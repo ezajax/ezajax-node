@@ -7,7 +7,7 @@ import express from 'express'
 import bodyParser from 'body-parser';
 
 import {D, W, E} from './utils/logger';
-import container from './container';
+import {load} from './container';
 import jsHandler from './client/js_handler';
 
 import contextInit from './server/context_init';
@@ -25,9 +25,9 @@ var router = express.Router();
  * @param option                    选项
  * @returns {Promise.<Function>}    express中间件
  */
-export default async function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root} = {root: 'eazyajax'}) {
+export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root} = {root: 'eazyajax'}) {
     //加载和扫描模块
-    await container.load(ajaxModuleRoot);
+    load(ajaxModuleRoot);
     D('模块加载完毕');
 
     //注册JS文件处理器

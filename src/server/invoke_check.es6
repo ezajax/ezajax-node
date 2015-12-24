@@ -7,10 +7,10 @@
  */
 import util from 'util';
 
-import container from '../container';
+import {getModules} from '../container';
 
 export default function (req, res, next) {
-    var modules = container.getModules();
+    var modules = getModules();
     var context = req.eazyajax;
 
     //检查模块是否存在

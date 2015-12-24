@@ -18,11 +18,7 @@ import eazyajax from '../index';
         app.use(express.static('web'));
 
         //初始化eazyajax
-        eazyajax().then((middleware)=> {
-            app.use(middleware);
-        }).catch((error)=> {
-            E(`eazyajax模块初始化失败: ${error.message}`);
-        });
+        app.use(eazyajax());
 
         //初始化服务
         var port = 3000;
