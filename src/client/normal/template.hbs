@@ -18,8 +18,9 @@ var __eazyajaxRoot = '{{eazyajaxRoot}}';
             var promise = new Promise(function(resolve,reject){
                 __eazyajax({
                     url:url,
+                    method:'POST',
                     data:{
-                        args:JSON.stringify(args)
+                        args:encodeURIComponent(JSON.stringify(args))
                     },
                     success:function(data){
                         //时间解析器

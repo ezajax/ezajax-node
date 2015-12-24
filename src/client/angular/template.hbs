@@ -12,6 +12,13 @@ var __eazyajaxModule = angular.module('eazyajax',[]);
                 $http({
                     method:'POST',
                     url:url,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    transformRequest: function(data) {
+                        var body = [];
+                        for(var prop in data)
+                            body.push(encodeURIComponent(prop) + "=" + encodeURIComponent(data[prop]));
+                        return body.join("&");
+                    },
                     data:{args:JSON.stringify(args)},
                     transformResponse:function(data){
                         //时间解析器
