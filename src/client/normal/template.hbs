@@ -7,12 +7,19 @@
     {{#each module.methods as |method|}}
         {{module.invokeName}}.{{method.name}} = function(){
             var url = eazyajaxRoot + '{{module.originName}}/{{method.name}}.ac';
-            var args = JSON.stringify(Array.prototype.slice.call(arguments));
-            return new Promise(function(resolve,reject){
+            var args = Array.prototype.slice.call(arguments);
+
+            if(args.length>0)
+                if(typeof args[args.length-1] === 'function'){
+                    var callback = args[args.length-1];
+                    args.splice(args.length-1,1);
+                }
+
+            var promise = new Promise(function(resolve,reject){
                 _eazyajax({
                     url:url,
                     data:{
-                        args:args
+                        args:JSON.stringify(args)
                     },
                     success:function(data){
                         //时间解析器
@@ -24,15 +31,35 @@
                             }
                             return value;
                         };
-
+                        //解析json
                         var json = JSON.parse(data,dateParse);
-                        console.log(json.returnValue.getMilliseconds());
+
+                        if(json.error){
+                            var error = new Error(json.error.message);
+                            error.code = json.error.code;
+                            reject(error);
+                        }else{
+                            resolve(json.returnValue);
+                        }
                     },
                     error:function(){
-                        console.log('ajax error');
+                        var error = new Error("Ajax调用异常");
+                        error.code = -1;
+                        reject(error);
                     }
                 });
             });
+
+            //判断最后一个参数
+            if(callback){
+                promise.then(function(returnValue){
+                    callback(undefined,returnValue);
+                }).catch(function(error){
+                    callback(error);
+                });
+            }else{
+                return promise;
+            }
         }
     {{/each}}
 {{/each}}
