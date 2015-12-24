@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myapp">
 <head>
     <meta charset="UTF-8">
     <title>EazyAjax</title>
-    <script src="eazyajax/normal.js"></script>
+    <script src="angular.js"></script>
+    <script src="eazyajax/angular-eazyajax.js"></script>
     <script>
-        TestAjax.getName('eazyajax');
+        var myapp = angular.module('myapp', ['eazyajax']);
+
+        myapp.controller('MainCtrl', function ($scope, TestService) {
+            setInterval(function () {
+                TestService.getName(new Date()).then(function (returnValue) {
+                    $scope.returnValue = returnValue.getSeconds();
+                });
+            },10);
+        });
     </script>
 </head>
-<body>
-
+<body ng-controller="MainCtrl">
+{{returnValue}}
 </body>
 </html>

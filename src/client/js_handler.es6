@@ -7,6 +7,7 @@ import path from 'path';
 
 import {D,W,E} from '../utils/logger';
 import normalJSGenerator from './normal/js_generator';
+import angularJSGenerator from './angular/js_generator';
 
 export default async function (req, res, next) {
 
@@ -18,11 +19,12 @@ export default async function (req, res, next) {
         //客户端JS请求的分发
         switch (fileName) {
             case 'angular-eazyajax.js':
-                res.send('angular.js');
+                res.contentType('text/javascript');
+                res.send(await angularJSGenerator(eazyajaxRoot));
                 break;
 
             case 'normal.js':
-                res.contentType('application/javascript');
+                res.contentType('text/javascript');
                 res.send(await normalJSGenerator(eazyajaxRoot));
                 break;
 
