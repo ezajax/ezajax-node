@@ -1,3 +1,8 @@
+#缓存
+cache:
+  paths:
+    - node_modules/
+
 #环境准备
 before_script:
   - npm install --registry=https://registry.npm.taobao.org
@@ -5,9 +10,29 @@ before_script:
   - $GULP clean
 
 #构建
-gulp_build:
+build:
   stage: build
   script:
-    - $GULP
+    - $GULP build-all
+  tags:
+    - node
+
+#测试
+test:
+  stage: test
+  script:
+    - $GULP test
+  tags:
+    - node
+
+#发布到npm仓库
+publish:
+  stage: deploy
+  script:
+    - $GULP build-core
+    - cd dist
+    - npm publish
+  only:
+    - /^v\d+.\d+.\d+.*$/
   tags:
     - node

@@ -1,12 +1,23 @@
 /**
- * Modules Exporter
+ * Module initer and Modules exporter
  * Created by demon on 15-12-17.
  */
 
-import sayHello from './src/eazyajax';
+import eazyajax from './src/eazyajax';
+import util from 'util';
 
-//main function
-(async function () {
-    var content = await sayHello('demon');
-    console.log(content);
-})();
+/**
+ * 包装方法,将eazyajax包装一下共外部使用
+ * @param path      路径
+ * @param option    选项
+ * @param callback  回调
+ */
+module.exports = function (path, option) {
+
+    if (util.isObject(path)) {
+        option = path;
+        path = undefined;
+    }
+
+    return eazyajax(path, option);
+};
