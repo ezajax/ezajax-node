@@ -13,19 +13,18 @@ export default async function (req, res, next) {
 
     //拿到文件名,用来做区别分发
     var fileName = path.basename(req.baseUrl);
-    var eazyajaxRoot = req.baseUrl.substring(0, req.baseUrl.lastIndexOf('/') + 1);
 
     try {
         //客户端JS请求的分发
         switch (fileName) {
             case 'angular-eazyajax.js':
                 res.contentType('text/javascript');
-                res.send(await angularJSGenerator(eazyajaxRoot));
+                res.send(await angularJSGenerator());
                 break;
 
             case 'normal.js':
                 res.contentType('text/javascript');
-                res.send(await normalJSGenerator(eazyajaxRoot));
+                res.send(await normalJSGenerator());
                 break;
 
             default:

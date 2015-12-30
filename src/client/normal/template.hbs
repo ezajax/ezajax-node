@@ -1,5 +1,6 @@
 //eazyajax 调用根路径
-var __eazyajaxRoot = '{{eazyajaxRoot}}';
+var __currentJSUrl = document.scripts[document.scripts.length - 1].src
+var __eazyajaxRoot = __currentJSUrl.substring(0, __currentJSUrl.lastIndexOf("/") + 1);
 
 {{#each moduleStubs as |module|}}
     var {{module.pascalcaseName}}Ajax = {};
