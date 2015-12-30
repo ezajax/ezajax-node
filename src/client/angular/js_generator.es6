@@ -13,7 +13,7 @@ import {getModules} from '../../container';
 
 var fs = bluebird.promisifyAll(require('fs'));
 
-export default async function () {
+export default async function (eazyajaxRoot) {
 
     //从容器中读取已经加载的模块
     var modulesCache = getModules();
@@ -49,7 +49,7 @@ export default async function () {
     //编译模板
     var templateCompiler = handlebars.compile(templateContent);
     //编译模板,拿到动态生成的js内容
-    var jsContent = templateCompiler({moduleStubs});
+    var jsContent = templateCompiler({moduleStubs, eazyajaxRoot});
 
     //将内容拼接起来返回
     return `/***********angular-eazyajax.js************/
