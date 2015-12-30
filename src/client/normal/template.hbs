@@ -1,66 +1,69 @@
 //eazyajax 调用根路径
 var __eazyajaxRoot = '{{eazyajaxRoot}}';
 
+//invoker方法,所有的调用实际由它来处理
+var __normal_invoker = function(moduleName,methodName,args){
+    //构造url
+    var url = __eazyajaxRoot + moduleName + '/' + methodName + '.ac';
+
+    if(args.length>0)
+        if(typeof args[args.length-1] === 'function'){
+        var callback = args[args.length-1];
+        args.splice(args.length-1,1);
+    }
+
+    var promise = new Promise(function(resolve,reject){
+        __eazyajax({
+            url:url,
+            method:'POST',
+            data:{
+                args:encodeURIComponent(JSON.stringify(args))
+            },
+            success:function(data){
+                //时间解析器
+                var dateParse = function (key, value) {
+                    if (typeof value === 'string') {
+                        var segments = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d*)Z$/.exec(value);
+                        if (segments)
+                            return new Date(Date.UTC(+segments[1], +segments[2] - 1, +segments[3], +segments[4],+segments[5], +segments[6], +segments[7]));
+                    }
+                    return value;
+                };
+                //解析json
+                var json = JSON.parse(data,dateParse);
+
+                if(json.error){
+                    var error = new Error(json.error.message);
+                    error.code = json.error.code;
+                    reject(error);
+                }else{
+                    resolve(json.returnValue);
+                }
+            },
+            error:function(){
+                var error = new Error("Ajax调用异常");
+                error.code = -1;
+                reject(error);
+            }
+        });
+    });
+
+    //判断最后一个参数
+    if(callback){
+        promise.then(function(returnValue){
+            callback(undefined,returnValue);
+        }).catch(function(error){
+            callback(error);
+        });
+    }else{
+        return promise;
+    }
+};
+
 {{#each moduleStubs as |module|}}
     var {{module.pascalcaseName}}Ajax = {};
 
     {{#each module.methods as |method|}}
-        {{module.pascalcaseName}}Ajax.{{method.name}} = function(){
-            var url = __eazyajaxRoot + '{{module.name}}/{{method.name}}.ac';
-            var args = Array.prototype.slice.call(arguments);
-
-            if(args.length>0)
-                if(typeof args[args.length-1] === 'function'){
-                    var callback = args[args.length-1];
-                    args.splice(args.length-1,1);
-                }
-
-            var promise = new Promise(function(resolve,reject){
-                __eazyajax({
-                    url:url,
-                    method:'POST',
-                    data:{
-                        args:encodeURIComponent(JSON.stringify(args))
-                    },
-                    success:function(data){
-                        //时间解析器
-                        var dateParse = function (key, value) {
-                            if (typeof value === 'string') {
-                                var segments = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d*)Z$/.exec(value);
-                                if (segments)
-                                    return new Date(Date.UTC(+segments[1], +segments[2] - 1, +segments[3], +segments[4],+segments[5], +segments[6], +segments[7]));
-                            }
-                            return value;
-                        };
-                        //解析json
-                        var json = JSON.parse(data,dateParse);
-
-                        if(json.error){
-                            var error = new Error(json.error.message);
-                            error.code = json.error.code;
-                            reject(error);
-                        }else{
-                            resolve(json.returnValue);
-                        }
-                    },
-                    error:function(){
-                        var error = new Error("Ajax调用异常");
-                        error.code = -1;
-                        reject(error);
-                    }
-                });
-            });
-
-            //判断最后一个参数
-            if(callback){
-                promise.then(function(returnValue){
-                    callback(undefined,returnValue);
-                }).catch(function(error){
-                    callback(error);
-                });
-            }else{
-                return promise;
-            }
-        }
+        {{module.pascalcaseName}}Ajax.{{method.name}} = function(){ return __normal_invoker('{{module.name}}','{{method.name}}',Array.prototype.slice.call(arguments)); };
     {{/each}}
 {{/each}}

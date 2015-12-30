@@ -13,7 +13,8 @@ export default async function (req, res, next) {
 
     //拿到文件名,用来做区别分发
     var fileName = path.basename(req.baseUrl);
-    var eazyajaxRoot = req.baseUrl.substring(0, req.baseUrl.lastIndexOf('/') + 1);
+    var url = req.protocol + '://' + req.get('host') + req.originalUrl;
+    var eazyajaxRoot = url.substring(0, url.lastIndexOf('/') + 1);
 
     try {
         //客户端JS请求的分发

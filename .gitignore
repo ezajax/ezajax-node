@@ -20,3 +20,6 @@ coverage
 
 #gulp dist
 dist
+
+#排除掉web下面的ignore
+!example/web/**/*

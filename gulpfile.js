@@ -44,13 +44,22 @@ gulp.task('babel-test', ['clean'], function () {
         .pipe(gulp.dest(config.dist));
 });
 
-//文件拷贝
-gulp.task('files', ['clean'], function () {
+//核心文件拷贝
+gulp.task('files-core', ['clean'], function () {
     return gulp.src(
         [
             'package.json',
             'src/**/*.hbs',
             'src/**/*.jsfile'
+        ], {base: './'})
+        .pipe(gulp.dest(config.dist));
+});
+
+//用例文件拷贝
+gulp.task('files-example', ['clean'], function () {
+    return gulp.src(
+        [
+            'example/web/**/*'
         ], {base: './'})
         .pipe(gulp.dest(config.dist));
 });
@@ -82,10 +91,10 @@ gulp.task('clean', function () {
 });
 
 //构建核心库
-gulp.task('build-core', ['babel-core', 'files']);
+gulp.task('build-core', ['babel-core', 'files-core']);
 
 //构建用例
-gulp.task('build-all', ['babel-core', 'babel-example', 'babel-test', 'files']);
+gulp.task('build-all', ['babel-core', 'babel-example', 'babel-test', 'files-core', 'files-example']);
 
 //默认任务
 gulp.task('default', ['build-core']);
