@@ -16,7 +16,7 @@ var fs = bluebird.promisifyAll(require('fs'));
 //js内容缓存
 var jsCache;
 
-export default async function (eazyajaxRoot) {
+export default async function () {
     if (!jsCache) {
         //从容器中读取已经加载的模块
         var modulesCache = getModules();
@@ -52,7 +52,7 @@ export default async function (eazyajaxRoot) {
         //编译模板
         var templateCompiler = handlebars.compile(templateContent);
         //编译模板,拿到动态生成的js内容
-        var jsContent = templateCompiler({moduleStubs, eazyajaxRoot});
+        var jsContent = templateCompiler({moduleStubs});
 
         //将内容拼接起来返回
         jsCache = `/***********angular-eazyajax.js************/
