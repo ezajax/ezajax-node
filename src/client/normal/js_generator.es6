@@ -16,7 +16,7 @@ var fs = bluebird.promisifyAll(require('fs'));
 //js内容缓存
 var jsCache;
 
-export default async function (eazyajaxRoot) {
+export default async function () {
     if (!jsCache) {
         //加载第三方文件
         var assetsLoadPromises = ['es5-shim', 'promise', 'json', 'ajax'].map((assetsName)=> {
@@ -60,7 +60,7 @@ export default async function (eazyajaxRoot) {
         //编译模板
         var templateCompiler = handlebars.compile(templateContent);
         //编译模板,拿到动态生成的js内容
-        var jsContent = templateCompiler({moduleStubs, eazyajaxRoot});
+        var jsContent = templateCompiler({moduleStubs});
 
         //将内容拼接起来返回
         jsCache = `/***********es5-shim.js***********/

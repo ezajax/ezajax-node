@@ -1,5 +1,10 @@
 //eazyajax 调用根路径
-var __eazyajaxRoot = '{{eazyajaxRoot}}';
+var __scripts = []
+for(var index = 0;index < document.scripts.length;index++)
+    if(document.scripts[index].src !== '')
+        __scripts.push(document.scripts[index]);
+var __currentJSUrl = __scripts[__scripts.length - 1].src
+var __eazyajaxRoot = __currentJSUrl.substring(0, __currentJSUrl.lastIndexOf("/") + 1);
 
 //invoker方法,所有的调用实际由它来处理
 var __normal_invoker = function(moduleName,methodName,args){
