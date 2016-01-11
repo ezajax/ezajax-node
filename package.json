@@ -1,6 +1,6 @@
 {
   "name": "eazyajax4js",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "a framework for browser js invoke nodejs method on server",
   "main": "index.js",
   "scripts": {
