@@ -6,6 +6,7 @@
 import eazyajax from './src/eazyajax';
 import util from 'util';
 import permission from './src/server/decorators/permission';
+var validate = require('./src/server/decorators/validate');
 
 /**
  * 包装方法,将eazyajax包装一下共外部使用
@@ -25,3 +26,4 @@ module.exports = function (path, option) {
 
 //导出修饰器
 module.exports.permission = permission;
+module.exports.validate = validate;
