@@ -13,6 +13,7 @@ import jsHandler from './client/js_handler';
 import contextInit from './server/context_init';
 import invokeCheck from './server/invoke_check';
 import permissionCheck from './server/permission_check';
+import validate from './server/validate';
 import invoker from './server/invoker';
 
 var router = express.Router();
@@ -41,6 +42,7 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {roo
         contextInit,
         invokeCheck,
         permissionCheck,
+        validate,
         invoker
     );
 

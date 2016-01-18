@@ -1,6 +1,6 @@
 {
   "name": "eazyajax4js",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "a framework for browser js invoke nodejs method on server",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,8 @@
   },
   "babel": {
     "plugins": [
-      "transform-runtime"
+      "transform-runtime",
+      "transform-decorators-legacy"
     ],
     "presets": [
       "es2015",
@@ -31,6 +32,7 @@
   },
   "homepage": "https://github.com/danwime/eazyajax4js#readme",
   "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.3.13",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
@@ -51,6 +53,7 @@
     "babel-runtime": "^6.3.19",
     "bluebird": "^3.1.1",
     "body-parser": "^1.14.2",
-    "handlebars": "^4.0.5"
+    "handlebars": "^4.0.5",
+    "joi": "^7.2.1"
   }
 }
