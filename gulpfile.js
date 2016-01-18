@@ -8,7 +8,7 @@ var istanbul = require('gulp-istanbul');
 var config = {
     dist: 'dist',
     babel: {
-        plugins: ['transform-runtime'],
+        plugins: ['transform-runtime', 'transform-decorators-legacy'],
         presets: ['es2015', 'stage-0']
     }
 };
