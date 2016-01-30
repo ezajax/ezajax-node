@@ -24,7 +24,6 @@ export function load(modulePath) {
     if (stats.isDirectory()) {
         //获取到目录下所有的文件
         var files = fs.readdirSync(modulePath);
-        logger.debug(`目录 ${modulePath} 下找到 ${files.length} 个文件`);
         //挨个遍历
         files.forEach(filename => load(path.join(modulePath, filename)));
     } else {
@@ -43,7 +42,6 @@ export function load(modulePath) {
             var jsModule = require(modulePath);
             //存入模块
             moduleCache.set(moduleName, jsModule);
-            logger.debug(`文件 ${modulePath} 中加载了 ${moduleName} 模块`);
         }
     }
 }
