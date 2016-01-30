@@ -6,7 +6,8 @@
 import bluebird from 'bluebird';
 import EventEmitter from 'events';
 import path from 'path';
-import logger from './utils/logger';
+import util from 'util';
+import {debug as D,warn as W,error as E} from './utils/logger';
 var fs = bluebird.promisifyAll(require('fs'));
 
 //ajax模块缓存
@@ -24,7 +25,6 @@ export function load(modulePath) {
     if (stats.isDirectory()) {
         //获取到目录下所有的文件
         var files = fs.readdirSync(modulePath);
-        logger.debug(`目录 ${modulePath} 下找到 ${files.length} 个文件`);
         //挨个遍历
         files.forEach(filename => load(path.join(modulePath, filename)));
     } else {
@@ -43,7 +43,16 @@ export function load(modulePath) {
             var jsModule = require(modulePath);
             //存入模块
             moduleCache.set(moduleName, jsModule);
-            logger.debug(`文件 ${modulePath} 中加载了 ${moduleName} 模块`);
+
+            //输出模块图谱
+            console.log(`+--+-- ${moduleName} 模块`);
+            //D(`   |`);
+            for (let key in jsModule) {
+                if (util.isFunction(jsModule[key])) {
+                    console.log(`   |-- ${key}`);
+                }
+            }
+            console.log('   ^');
         }
     }
 }
