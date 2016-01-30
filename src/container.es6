@@ -6,7 +6,8 @@
 import bluebird from 'bluebird';
 import EventEmitter from 'events';
 import path from 'path';
-import logger from './utils/logger';
+import util from 'util';
+import {debug as D,warn as W,error as E} from './utils/logger';
 var fs = bluebird.promisifyAll(require('fs'));
 
 //ajax模块缓存
@@ -42,6 +43,16 @@ export function load(modulePath) {
             var jsModule = require(modulePath);
             //存入模块
             moduleCache.set(moduleName, jsModule);
+
+            //输出模块图谱
+            console.log(`+--+-- ${moduleName} 模块`);
+            //D(`   |`);
+            for (let key in jsModule) {
+                if (util.isFunction(jsModule[key])) {
+                    console.log(`   |-- ${key}`);
+                }
+            }
+            console.log('   ^');
         }
     }
 }
