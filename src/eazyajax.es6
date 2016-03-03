@@ -28,8 +28,8 @@ var router = express.Router();
  */
 export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root} = {root: 'eazyajax'}) {
 
-    //输出LOGO
-    console.log(`
+  //输出LOGO
+  console.log(`
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ███████╗ █████╗ ███████╗██╗   ██╗     █████╗      ██╗ █████╗ ██╗  ██╗
 ██╔════╝██╔══██╗╚══███╔╝╚██╗ ██╔╝    ██╔══██╗     ██║██╔══██╗╚██╗██╔╝
@@ -39,25 +39,25 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {roo
 ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝       ╚═╝  ╚═╝ ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++`);
 
-    //加载和扫描模块
-    load(ajaxModuleRoot);
-    console.log('模块加载完毕!\n');
+  //加载和扫描模块
+  load(ajaxModuleRoot);
+  console.log('模块加载完毕!\n');
 
-    //注册JS文件处理器
-    router.use(`/${root}/*.js`, jsHandler);
+  //注册JS文件处理器
+  router.use(`/${root}/*.js`, jsHandler);
 
-    //注册ajax调用处理器
-    router.use(
-        `/${root}/:moduleName/:methodName.ac`,
-        bodyParser.json(),
-        bodyParser.urlencoded({extended: false}),
-        contextInit,
-        invokeCheck,
-        permissionCheck,
-        validate,
-        invoker
-    );
+  //注册ajax调用处理器
+  router.use(
+    `/${root}/:moduleName/:methodName.ac`,
+    bodyParser.json(),
+    bodyParser.urlencoded({extended: false}),
+    contextInit,
+    invokeCheck,
+    permissionCheck,
+    validate,
+    invoker
+  );
 
-    //返回一个express中间件
-    return router;
+  //返回一个express中间件
+  return router;
 }

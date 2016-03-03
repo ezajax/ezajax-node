@@ -3,43 +3,43 @@
  * Created by demon on 15/12/19.
  */
 export default function (req, res) {
-    try {
-        var context = req.eazyajax;
-        var args = context.args;
+  try {
+    var context = req.eazyajax;
+    var args = context.args;
 
-        //权限检查通过,开始调用函数
-        let returnValue = context.method.apply(context, args);
+    //权限检查通过,开始调用函数
+    let returnValue = context.method.apply(context, args);
 
-        //判断函数有没有返回值
-        if (returnValue === undefined) {
-            //返回自定义
-            res.sendReturnValue(undefined);
-        } else if (returnValue === null) {
-            //返回空值
-            res.sendReturnValue(null);
-        } else {
-            //如果有返回值,先判断是不是一个承诺
-            if (returnValue.then) {
-                //如果是一个承诺,则异步返回
-                returnValue.then((value)=> {
-                    res.sendReturnValue(value);
-                }).catch((error)=> {
-                    if (error.code == null)
-                        error.code = -5;
-                    if (error.message == null || error.message == '')
-                        error.message = '未知错误';
-                    res.sendError(error.code, error.message);
-                });
-            } else {
-                //不是承诺,直接返回结果
-                res.sendReturnValue(returnValue);
-            }
-        }
-    } catch (error) {
-        if (error.code == null)
+    //判断函数有没有返回值
+    if (returnValue === undefined) {
+      //返回自定义
+      res.sendReturnValue(undefined);
+    } else if (returnValue === null) {
+      //返回空值
+      res.sendReturnValue(null);
+    } else {
+      //如果有返回值,先判断是不是一个承诺
+      if (returnValue.then) {
+        //如果是一个承诺,则异步返回
+        returnValue.then((value)=> {
+          res.sendReturnValue(value);
+        }).catch((error)=> {
+          if (error.code == null)
             error.code = -5;
-        if (error.message == null || error.message == '')
+          if (error.message == null || error.message == '')
             error.message = '未知错误';
-        res.sendError(error.code, error.message);
+          res.sendError(error.code, error.message);
+        });
+      } else {
+        //不是承诺,直接返回结果
+        res.sendReturnValue(returnValue);
+      }
     }
+  } catch (error) {
+    if (error.code == null)
+      error.code = -5;
+    if (error.message == null || error.message == '')
+      error.message = '未知错误';
+    res.sendError(error.code, error.message);
+  }
 }

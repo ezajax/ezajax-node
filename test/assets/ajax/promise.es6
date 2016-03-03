@@ -7,9 +7,9 @@
  * 没有返回值
  */
 export function getNone() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve(), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve(), 20);
+  });
 }
 
 /**
@@ -17,9 +17,9 @@ export function getNone() {
  * @returns {Promise}      空值
  */
 export function getNull() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve(null), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve(null), 20);
+  });
 }
 
 /**
@@ -27,9 +27,9 @@ export function getNull() {
  * @returns {Promise}       布尔值false
  */
 export function getBoolean() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve(false), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve(false), 20);
+  });
 }
 
 /**
@@ -37,9 +37,9 @@ export function getBoolean() {
  * @returns {Promise}    数字3.14
  */
 export function getNumber() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve(3.14), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve(3.14), 20);
+  });
 }
 
 /**
@@ -47,9 +47,9 @@ export function getNumber() {
  * @returns {Promise}    字符串'eazyajax'
  */
 export function getString() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve('eazyajax'), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve('eazyajax'), 20);
+  });
 }
 
 /**
@@ -57,9 +57,9 @@ export function getString() {
  * @returns {Promise}       数组[1, 2, 3, 4, 'five', null]
  */
 export function getArray() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve([1, 2, 3, 4, 'five', null]), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve([1, 2, 3, 4, 'five', null]), 20);
+  });
 }
 
 /**
@@ -67,7 +67,7 @@ export function getArray() {
  * @returns {Promise}    对象
  */
 export function getObject() {
-    return new Promise((resolve)=> {
-        setTimeout(()=>resolve({name: 'eazyajax', author: 'danwi'}), 20);
-    });
+  return new Promise((resolve)=> {
+    setTimeout(()=>resolve({name: 'eazyajax', author: 'danwi'}), 20);
+  });
 }

@@ -15,7 +15,7 @@ export function getNone() {
  * @returns {null}      空值
  */
 export function getNull() {
-    return null;
+  return null;
 }
 
 /**
@@ -23,7 +23,7 @@ export function getNull() {
  * @returns {boolean}
  */
 export function getBoolean() {
-    return false;
+  return false;
 }
 
 /**
@@ -31,7 +31,7 @@ export function getBoolean() {
  * @returns {number}    数字3.14
  */
 export function getNumber() {
-    return 3.14;
+  return 3.14;
 }
 
 /**
@@ -39,7 +39,7 @@ export function getNumber() {
  * @returns {string}    字符串'eazyajax'
  */
 export function getString() {
-    return 'eazyajax';
+  return 'eazyajax';
 }
 
 /**
@@ -47,7 +47,7 @@ export function getString() {
  * @returns {*[]}       数组[1, 2, 3, 4, 'five', null]
  */
 export function getArray() {
-    return [1, 2, 3, 4, 'five', null];
+  return [1, 2, 3, 4, 'five', null];
 }
 
 /**
@@ -55,10 +55,10 @@ export function getArray() {
  * @returns {Object}    对象
  */
 export function getObject() {
-    return {
-        name: 'eazyajax',
-        author: 'danwi'
-    }
+  return {
+    name: 'eazyajax',
+    author: 'danwi'
+  }
 }
 
 

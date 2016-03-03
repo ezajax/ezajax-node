@@ -9,9 +9,9 @@
  * @returns {*}
  */
 export function throwError(id) {
-    if (id === 1)
-        throw new Error();
-    return id;
+  if (id === 1)
+    throw new Error();
+  return id;
 }
 
 /**
@@ -20,11 +20,11 @@ export function throwError(id) {
  * @returns {Promise}
  */
 export function throwErrorInPromise(id) {
-    return new Promise((resolve, reject)=> {
-        if (id === 1)
-            throw new Error();
-        resolve(id);
-    });
+  return new Promise((resolve, reject)=> {
+    if (id === 1)
+      throw new Error();
+    resolve(id);
+  });
 }
 
 /**
@@ -33,13 +33,13 @@ export function throwErrorInPromise(id) {
  * @returns {Promise}
  */
 export function rejectErrorInPromise(id) {
-    return new Promise((resolve, reject)=> {
-        if (id === 1) {
-            reject(new Error('reject异常'));
-            return;
-        }
-        resolve(1);
-    });
+  return new Promise((resolve, reject)=> {
+    if (id === 1) {
+      reject(new Error('reject异常'));
+      return;
+    }
+    resolve(1);
+  });
 }
 
 /**
@@ -48,12 +48,12 @@ export function rejectErrorInPromise(id) {
  * @returns {*}
  */
 export function throwErrorWithCodeAndMessage(id) {
-    if (id === 1) {
-        var error = new Error('id异常');
-        error.code = 1;
-        throw  error;
-    }
-    return id;
+  if (id === 1) {
+    var error = new Error('id异常');
+    error.code = 1;
+    throw  error;
+  }
+  return id;
 }
 
 /**
@@ -62,12 +62,12 @@ export function throwErrorWithCodeAndMessage(id) {
  * @returns {Promise}
  */
 export function throwErrorWithCodeAndMessageInPromise(id) {
-    return new Promise((resolve, reject)=> {
-        if (id === 1) {
-            var error = new Error('id异常');
-            error.code = 1;
-            throw error;
-        }
-        resolve(id);
-    });
+  return new Promise((resolve, reject)=> {
+    if (id === 1) {
+      var error = new Error('id异常');
+      error.code = 1;
+      throw error;
+    }
+    resolve(id);
+  });
 }

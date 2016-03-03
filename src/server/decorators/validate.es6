@@ -5,9 +5,9 @@
 import joi from 'joi';
 
 module.exports = function (...schemas) {
-    return function (target, name) {
-        target[name].validate = schemas;
-    }
+  return function (target, name) {
+    target[name].validate = schemas;
+  }
 };
 
 module.exports.should = joi;

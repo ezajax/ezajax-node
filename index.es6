@@ -16,12 +16,12 @@ var validate = require('./src/server/decorators/validate');
  */
 module.exports = function (path, option) {
 
-    if (util.isObject(path)) {
-        option = path;
-        path = undefined;
-    }
+  if (util.isObject(path)) {
+    option = path;
+    path = undefined;
+  }
 
-    return eazyajax(path, option);
+  return eazyajax(path, option);
 };
 
 //导出修饰器
