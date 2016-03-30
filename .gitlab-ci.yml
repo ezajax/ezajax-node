@@ -13,7 +13,7 @@ before_script:
 build:
   stage: build
   script:
-    - $GULP build-all
+    - $GULP
   tags:
     - node
 
@@ -29,7 +29,7 @@ test:
 publish:
   stage: deploy
   script:
-    - $GULP build-core
+    - $GULP
     - cd dist
     - npm publish
   only:
