@@ -6,18 +6,17 @@ import util from 'util';
 
 export default function (req, res, next) {
 
-  //发送ajax调用的结果
-  res.sendReturnValue = function (returnValue) {
-    //时间序列化器
-    var ajaxReturnValueString = JSON.stringify({returnValue});
-    res.contentType('application/json');
-    res.send(ajaxReturnValueString);
-  };
+  //设置统一的content-type
+  res.contentType('application/json');
+
+  //发送成功调用结果
+  req.sendReturnValue = returnValue => res.send(JSON.stringify(returnValue));
 
   //发送异常信息
-  res.sendError = function (code, message) {
-    res.contentType('application/json');
-    res.send(JSON.stringify({error: {code, message}}));
+  res.sendError = (code, message) => {
+    //异常请求服务器会返回500,以便前端来区分
+    res.statusCode = 500;
+    res.send(JSON.stringify({code, message}));
   };
 
   try {
