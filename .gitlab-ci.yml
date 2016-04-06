@@ -31,6 +31,8 @@ publish_example:
   script:
     - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js;git pull;dpm install;gulp'
     - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js/dist/example;forever stop eazyajax4js;forever start -a --uid "eazyajax4js" ./index.js'
+  only:
+    - develop
   tags:
     - linux
 
