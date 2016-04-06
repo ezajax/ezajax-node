@@ -25,8 +25,17 @@ test:
   tags:
     - node
 
+#发布example网站
+publish_example:
+  stage: deploy
+  script:
+    - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js;git pull;dpm install;gulp'
+    - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js/dist/example;forever stop eazyajax4js;forever start --uid "eazyajax4js" ./index.js'
+  tags:
+    - linux
+
 #发布到npm仓库
-publish:
+publish_npm:
   stage: deploy
   script:
     - $GULP
