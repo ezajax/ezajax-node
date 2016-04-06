@@ -30,7 +30,7 @@ publish_example:
   stage: deploy
   script:
     - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js;git pull;dpm install;gulp'
-    - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js/dist/example;forever stop eazyajax4js;forever start --uid "eazyajax4js" ./index.js'
+    - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js/dist/example;forever stop eazyajax4js;forever start -a --uid "eazyajax4js" ./index.js'
   tags:
     - linux
 
