@@ -21,7 +21,7 @@ import eazyajax from '../index';
     app.use(eazyajax());
 
     //初始化服务
-    var port = 3000;
+    var port = 3001;
     var server = http.createServer(app);
     //服务器开始监听
     server.listen(port);
