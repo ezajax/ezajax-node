@@ -4,7 +4,10 @@
   "description": "a framework for browser js invoke nodejs method on server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "gulp clean",
+    "prestart": "gulp build",
+    "start": "cd dist/example;node ./index.js",
+    "test": "gulp test"
   },
   "files": [
     "package.json",
