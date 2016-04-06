@@ -10,14 +10,14 @@
 
         myapp.controller('MainCtrl', function ($scope, TestService) {
             setInterval(function () {
-                TestService.getName(new Date()).then(function (returnValue) {
-                    $scope.returnValue = returnValue.getSeconds();
+                TestService.getTime(new Date()).then(function (returnValue) {
+                    $scope.returnValue = returnValue;
                 });
             }, 10);
         });
     </script>
 </head>
 <body ng-controller="MainCtrl">
-{{returnValue}}
+时间: {{returnValue|date:'yyyy-MM-dd HH:mm:ss'}}
 </body>
 </html>
