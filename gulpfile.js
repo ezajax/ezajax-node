@@ -94,12 +94,12 @@ gulp.task('static-sync:dev', ['static-sync'], function () {
 
 
 //构建任务
-gulp.task('build', function () {
-  runSequence('clean', ['compile', 'static-sync'])
+gulp.task('build', function (done) {
+  runSequence('clean', ['compile', 'static-sync'], done);
 });
 
 gulp.task('build:dev', function () {
-  runSequence('clean', ['compile:dev', 'static-sync:dev'])
+  runSequence('clean', ['compile:dev', 'static-sync:dev']);
 });
 
 //测试预处理任务
