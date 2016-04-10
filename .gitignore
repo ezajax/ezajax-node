@@ -24,3 +24,6 @@ dist
 
 #排除掉web下面的ignore
 !example/web/**/*
+
+#for test
+test.es6
