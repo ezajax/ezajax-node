@@ -103,18 +103,6 @@ gulp.task('build:dev', function () {
   runSequence('clean', ['compile:dev', 'static-sync:dev']);
 });
 
-//测试预处理任务
-gulp.task('test:istanbul-init', function () {
-  return gulp.src(
-    [
-      config.dist + '/src/server/**/*.js',
-      config.dist + '/src/utils/**/*.js',
-      config.dist + '/src/*.js'
-    ])
-    .pipe(istanbul())
-    .pipe(istanbul.hookRequire());
-});
-
 //启动测试服务器
 gulp.task('test:start-test-server', function (done) {
   var server = require('./' + config.dist + '/test/server/index');
@@ -138,9 +126,7 @@ gulp.task('test:stop-test-server', function (done) {
 gulp.task('test:http-client', function () {
   util.log('[Test] 开始测试 http / app-api 客户端调用')
   return gulp.src(config.dist + '/test/http_client/**/*.js', {read: false})
-    .pipe(mocha())
-    .pipe(istanbul.writeReports())
-    .pipe(istanbul.enforceThresholds({thresholds: {global: 80}}));
+    .pipe(mocha());
 });
 
 //浏览器测试
@@ -155,7 +141,7 @@ gulp.task('test:browser', function () {
 
 //测试
 gulp.task('test', function (done) {
-  runSequence('build', ['test:istanbul-init', 'test:start-test-server'], 'test:http-client', 'test:browser', 'test:stop-test-server', done);
+  runSequence('build', 'test:start-test-server', 'test:http-client', 'test:browser', 'test:stop-test-server', done);
 });
 
 //清理文件
