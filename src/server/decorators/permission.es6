@@ -3,6 +3,9 @@
  */
 export default function (...permissionFunctions) {
   return function (target, name) {
-    target[name].permission = permissionFunctions;
+    if (name)
+      target[name].permission = permissionFunctions;
+    else
+      target.permission = permissionFunctions;
   }
 }

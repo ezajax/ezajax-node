@@ -4,13 +4,13 @@
  */
 import {validate} from '../../../index'
 
-class Validate {
+class ValidateAjax {
   /**
    * 参数不能为空
    * @param name
    * @param age
    */
-  @validate(validate.require(), validate.require())
+  @validate(validate.should.required(), validate.should.required())
   static requireArgs(name, age) {
   }
 
@@ -18,7 +18,7 @@ class Validate {
    * 必须为字符串
    * @param name
    */
-  @validate(validate.string)
+  @validate(validate.should.string())
   static mustBeString(name) {
   }
 
@@ -26,7 +26,7 @@ class Validate {
    * 必须为数字
    * @param age
    */
-  @validate(validate.number)
+  @validate(validate.should.number())
   static mustBeNumber(age) {
   }
 
@@ -36,10 +36,17 @@ class Validate {
    * @param age   必须为数字,且大小 1~120
    */
   @validate(
-    validate.string.min(5).max(10),
-    validate.number.min(1).max(120)
+    validate.should.string().min(5).max(10),
+    validate.should.number().min(1).max(120)
   )
   static complexValidate(name, age) {
 
   }
+}
+
+module.exports = {
+  requireArgs: ValidateAjax.requireArgs,
+  mustBeString: ValidateAjax.mustBeString,
+  mustBeNumber: ValidateAjax.mustBeNumber,
+  complexValidate: ValidateAjax.complexValidate
 }

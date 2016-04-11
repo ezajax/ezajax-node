@@ -95,7 +95,7 @@ class Permission {
   }
 }
 
-exports = {
+module.exports = {
   getAllUser: Permission.getAllUser,
   getUser: Permission.getUser,
   getInternalInfo: Permission.getInternalInfo,
