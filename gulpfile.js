@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var babel = require('gulp-babel');
 var clean = require('gulp-clean');
 var mocha = require('gulp-mocha');
-var istanbul = require('gulp-istanbul');
 var print = require('gulp-print');
 var phantom = require('gulp-mocha-phantomjs');
 var watch = require('gulp-watch');
