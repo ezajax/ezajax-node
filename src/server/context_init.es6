@@ -10,7 +10,7 @@ export default function (req, res, next) {
   res.contentType('application/json');
 
   //发送成功调用结果
-  req.sendReturnValue = returnValue => res.send(JSON.stringify(returnValue));
+  res.sendReturnValue = returnValue => res.send(JSON.stringify(returnValue));
 
   //发送异常信息
   res.sendError = (code, message) => {
