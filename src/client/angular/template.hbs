@@ -13,6 +13,7 @@ var __eazyajaxModule = angular.module('eazyajax',[]);
 var __angular_invoker = function($q,$http,moduleName,methodName,args){
     //构造url
     var url = __eazyajaxRoot + moduleName + '/' + methodName + '.ac';
+
     //返回一个承诺
     return $q(function(resolve,reject){
         $http({
@@ -21,11 +22,14 @@ var __angular_invoker = function($q,$http,moduleName,methodName,args){
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             transformRequest: function(data) {
                 var body = [];
-                for(var prop in data)
-                    body.push(encodeURIComponent(prop) + "=" + encodeURIComponent(data[prop]));
+                var index = 0;
+                for(var prop in data){
+                    body.push(encodeURIComponent(index) + "=" + encodeURIComponent(JSON.stringify(data[prop])));
+                    index++;
+                }
                 return body.join("&");
             },
-            data:{args:JSON.stringify(args)},
+            data:args,
             transformResponse:function(data){
                 //时间解析器
                 var dateParse = function (key, value) {
@@ -41,20 +45,19 @@ var __angular_invoker = function($q,$http,moduleName,methodName,args){
             }
         }).then(
             function(res){
-                var json = res.data;
-
-                if(json.error){
-                    var error = new Error(json.error.message);
-                    error.code = json.error.code;
+                resolve(res.data);
+            },
+            function(res,test1,test2,test3,test4){
+                if(res.status === 500){
+                    //方法调用异常
+                    var error = new Error(res.data.message);
+                    error.code = res.data.code;
                     reject(error);
                 }else{
-                    resolve(json.returnValue);
+                    var error = new Error("Ajax调用异常");
+                    error.code = -1;
+                    reject(error);
                 }
-            },
-            function(){
-                var error = new Error("Ajax调用异常");
-                error.code = -1;
-                reject(error);
             }
         );
     });

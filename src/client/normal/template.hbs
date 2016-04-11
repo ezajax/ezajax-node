@@ -7,23 +7,27 @@ var __currentJSUrl = __scripts[__scripts.length - 1].src
 var __eazyajaxRoot = __currentJSUrl.substring(0, __currentJSUrl.lastIndexOf("/") + 1);
 
 //invoker方法,所有的调用实际由它来处理
-var __normal_invoker = function(moduleName,methodName,args){
+var __normal_invoker = function(moduleName,methodName,argsArray){
     //构造url
     var url = __eazyajaxRoot + moduleName + '/' + methodName + '.ac';
 
-    if(args.length>0)
-        if(typeof args[args.length-1] === 'function'){
-        var callback = args[args.length-1];
-        args.splice(args.length-1,1);
+    if(argsArray.length>0)
+        if(typeof argsArray[argsArray.length-1] === 'function'){
+            var callback = argsArray[argsArray.length-1];
+            argsArray.splice(argsArray.length-1,1);
+        }
+
+    var args = {};
+
+    for(var index = 0; index < argsArray.length; index++){
+        args[""+index] = encodeURIComponent(JSON.stringify(argsArray[index]));
     }
 
     var promise = new Promise(function(resolve,reject){
         __eazyajax({
             url:url,
             method:'POST',
-            data:{
-                args:encodeURIComponent(JSON.stringify(args))
-            },
+            data:args,
             success:function(data){
                 //时间解析器
                 var dateParse = function (key, value) {

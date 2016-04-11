@@ -38,6 +38,8 @@ export default function (req, res) {
         }
       }
     }
+    
+    console.log(args);
 
     //权限检查通过,开始调用函数
     let returnValue = context.method.apply(context, args);
