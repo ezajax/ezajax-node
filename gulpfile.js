@@ -4,6 +4,7 @@ var clean = require('gulp-clean');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var print = require('gulp-print');
+var phantom = require('gulp-mocha-phantomjs');
 var watch = require('gulp-watch');
 var runSequence = require('run-sequence');
 var util = require('gulp-util');
@@ -25,7 +26,8 @@ config.static = [
   'package.json',
   'src/**/*.hbs',
   'src/**/*.jsfile',
-  'example/web/**/*'
+  'example/web/**/*',
+  'test/browser/**/*'
 ];
 
 //清理任务
@@ -92,7 +94,6 @@ gulp.task('static-sync:dev', ['static-sync'], function () {
   });
 });
 
-
 //构建任务
 gulp.task('build', function (done) {
   runSequence('clean', ['compile', 'static-sync'], done);
@@ -103,7 +104,7 @@ gulp.task('build:dev', function () {
 });
 
 //测试预处理任务
-gulp.task('pre-test', ['build'], function () {
+gulp.task('test:istanbul-init', function () {
   return gulp.src(
     [
       config.dist + '/src/server/**/*.js',
@@ -114,12 +115,47 @@ gulp.task('pre-test', ['build'], function () {
     .pipe(istanbul.hookRequire());
 });
 
-//测试任务
-gulp.task('test', ['pre-test'], function () {
-  return gulp.src(config.dist + '/test/**/*.js', {read: false})
+//启动测试服务器
+gulp.task('test:start-test-server', function (done) {
+  var server = require('./' + config.dist + '/test/server/index');
+  server.start(function (port) {
+    config.port = port;
+    util.log('[Test] 测试服务器启动完毕,监听 ' + port + ' 端口');
+    done();
+  });
+});
+
+//关闭测试服务器
+gulp.task('test:stop-test-server', function (done) {
+  var server = require('./' + config.dist + '/test/server/index');
+  server.stop(function () {
+    util.log('[Test] 测试服务器关闭');
+    done();
+  });
+});
+
+//http客户端(APP-API)测试
+gulp.task('test:http-client', function () {
+  util.log('[Test] 开始测试 http / app-api 客户端调用')
+  return gulp.src(config.dist + '/test/http_client/**/*.js', {read: false})
     .pipe(mocha())
     .pipe(istanbul.writeReports())
     .pipe(istanbul.enforceThresholds({thresholds: {global: 80}}));
+});
+
+//浏览器测试
+gulp.task('test:browser', function () {
+  util.log('[Test] 开始测试浏览器的调用');
+  var stream = phantom({useColors: true});
+  stream.write({path: 'http://localhost:' + config.port + '/index.html'});
+  stream.on('data', util.log);
+  stream.end();
+  return stream;
+});
+
+//测试
+gulp.task('test', function (done) {
+  runSequence('build', ['test:istanbul-init', 'test:start-test-server'], 'test:http-client', 'test:browser', 'test:stop-test-server', done);
 });
 
 //清理文件

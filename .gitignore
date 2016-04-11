@@ -6,24 +6,11 @@
 node_modules
 npm-debug.log
 
-#babel compiled js
-index.js
-index.js.map
-src/**/*.js
-src/**/*.js.map
-example/**/*.js
-example/**/*.js.map
-test/**/*.js
-test/**/*.js.map
-
 #coverage reporter
 coverage
 
 #gulp dist
 dist
 
-#排除掉web下面的ignore
-!example/web/**/*
-
-#for test
+#排除test文件
 test.es6
