@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>EazyAjax4js Browser Tests</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,18 @@
 </head>
 <body>
 <div id="mocha"></div>
+
 <script src="libs/should.js"></script>
 <script src="libs/mocha.js"></script>
+<script src="eazyajax/normal.js"></script>
 <script>
     if (typeof initMochaPhantomJS === 'function') {
         initMochaPhantomJS()
     }
     mocha.setup('bdd')
 </script>
-<script src="normal/simple.js"></script>
+<!--基本测试-->
+<script src="normal/basic.js"></script>
 <script>
     mocha.run();
 </script>

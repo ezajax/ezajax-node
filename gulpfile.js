@@ -118,6 +118,8 @@ gulp.task('test:stop-test-server', function (done) {
   config.server.stop().then(function () {
     util.log('[Test] 测试服务器关闭');
     done();
+  }).catch(function (error) {
+    util.log('[Test] 测试服务器启动失败:\n' + error);
   });
 });
 
@@ -129,11 +131,22 @@ gulp.task('test:http-client', function () {
     .on('error', config.server.stop);
 });
 
-//浏览器测试
-gulp.task('test:browser', function () {
-  util.log('[Test] 开始测试浏览器的调用');
+//浏览器测试-通用情况
+gulp.task('test:browser:normal', function () {
+  util.log('[Test] 开始测试normal.js的调用');
   var stream = phantom({useColors: true});
-  stream.write({path: 'http://localhost:' + config.server.port + '/index.html'});
+  stream.write({path: 'http://localhost:' + config.server.port + '/normal.html'});
+  stream.on('data', util.log);
+  stream.on('error', config.server.stop);
+  stream.end();
+  return stream;
+});
+
+//浏览器测试-angularjs
+gulp.task('test:browser:angularjs', function () {
+  util.log('[Test] 开始测试angularjs的调用');
+  var stream = phantom({useColors: true});
+  stream.write({path: 'http://localhost:' + config.server.port + '/angularjs.html'});
   stream.on('data', util.log);
   stream.on('error', config.server.stop);
   stream.end();
@@ -142,7 +155,7 @@ gulp.task('test:browser', function () {
 
 //测试
 gulp.task('test', function (done) {
-  runSequence('build', 'test:start-test-server', 'test:http-client', 'test:browser', 'test:stop-test-server', done);
+  runSequence('build', 'test:start-test-server', 'test:http-client', 'test:browser:normal', 'test:browser:angularjs', 'test:stop-test-server', done);
 });
 
 //清理文件
