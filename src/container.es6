@@ -4,10 +4,9 @@
  */
 
 import bluebird from 'bluebird';
-import EventEmitter from 'events';
 import path from 'path';
 import util from 'util';
-import {debug as D, warn as W, error as E} from './utils/logger';
+import getParams from 'get-parameter-names';
 var fs = bluebird.promisifyAll(require('fs'));
 
 //ajax模块缓存
@@ -50,7 +49,9 @@ export function load(modulePath) {
         //D(`   |`);
         for (let key in jsModule) {
           if (util.isFunction(jsModule[key])) {
-            console.log(`   |-- ${key}`);
+            var func = jsModule[key];
+            func.__params_names__ = getParams(func);
+            console.log(`   |-- ${key}(${func.__params_names__})`);
           }
         }
         console.log('   ^');

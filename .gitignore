@@ -13,4 +13,4 @@ coverage
 dist
 
 #排除test文件
-test.es6
+/test.es6
