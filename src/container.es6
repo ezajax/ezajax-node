@@ -49,9 +49,7 @@ export function load(modulePath) {
         //D(`   |`);
         for (let key in jsModule) {
           if (util.isFunction(jsModule[key])) {
-            var func = jsModule[key];
-            func.__params_names__ = getParams(func);
-            console.log(`   |-- ${key}(${func.__params_names__})`);
+            console.log(`   |-- ${key}(${getParams(jsModule[key])})`);
           }
         }
         console.log('   ^');

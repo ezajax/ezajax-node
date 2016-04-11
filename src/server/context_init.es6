@@ -2,8 +2,6 @@
  * http context增强处理器
  * Created by demon on 15/12/19.
  */
-import util from 'util';
-
 export default function (req, res, next) {
 
   //设置统一的content-type
@@ -24,27 +22,31 @@ export default function (req, res, next) {
     var moduleName = req.params.moduleName;
     var methodName = req.params.methodName;
     var httpParams = Object.assign({}, req.query, req.body);
-    var args = null;
 
-    if (httpParams.args) {
-      //如果有参数
-      //时间解析器
-      var dateParse = function (key, value) {
-        if (typeof value === 'string') {
-          var segments = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d*)Z$/.exec(value);
-          if (segments) {
-            return new Date(Date.UTC(+segments[1], +segments[2] - 1, +segments[3], +segments[4],
-              +segments[5], +segments[6], +segments[7]));
-          }
+    //时间解析器
+    var dateParse = function (key, value) {
+      if (typeof value === 'string') {
+        var segments = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d*)Z$/.exec(value);
+        if (segments) {
+          return new Date(Date.UTC(+segments[1], +segments[2] - 1, +segments[3], +segments[4],
+            +segments[5], +segments[6], +segments[7]));
         }
-        return value;
-      };
+      }
+      return value;
+    };
 
-      args = JSON.parse(httpParams.args, dateParse);
+    for (var key in httpParams) {
+      try {
+        var value = JSON.parse(httpParams[key], dateParse);
+      } catch (e) {
+        value = httpParams[key];
+      }
+
+      httpParams[key] = value;
     }
 
     //初始化eazyajax调用的context到req对象上
-    req.eazyajax = {req, res, session: req.session, moduleName, methodName, args};
+    req.eazyajax = {req, res, session: req.session, moduleName, methodName, args: httpParams};
 
   } catch (error) {
     res.sendError(-1, error.message);
