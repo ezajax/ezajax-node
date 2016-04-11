@@ -26,7 +26,8 @@ config.static = [
   'src/**/*.hbs',
   'src/**/*.jsfile',
   'example/web/**/*',
-  'test/browser/**/*'
+  'test/browser/**/*',
+  '!**/*_tmp___'
 ];
 
 //清理任务
@@ -104,18 +105,17 @@ gulp.task('build:dev', function () {
 
 //启动测试服务器
 gulp.task('test:start-test-server', function (done) {
-  var server = require('./' + config.dist + '/test/server/index');
-  server.start(function (port) {
-    config.port = port;
-    util.log('[Test] 测试服务器启动完毕,监听 ' + port + ' 端口');
+  //加载测试服务器
+  config.server = require('./' + config.dist + '/test/server/index');
+  config.server.start().then(function () {
+    util.log('[Test] 测试服务器启动完毕,监听 ' + config.server.port + ' 端口');
     done();
   });
 });
 
 //关闭测试服务器
 gulp.task('test:stop-test-server', function (done) {
-  var server = require('./' + config.dist + '/test/server/index');
-  server.stop(function () {
+  config.server.stop().then(function () {
     util.log('[Test] 测试服务器关闭');
     done();
   });
@@ -123,17 +123,19 @@ gulp.task('test:stop-test-server', function (done) {
 
 //http客户端(APP-API)测试
 gulp.task('test:http-client', function () {
-  util.log('[Test] 开始测试 http / app-api 客户端调用')
+  util.log('[Test] 开始测试 http / app-api 客户端调用');
   return gulp.src(config.dist + '/test/http_client/**/*.js', {read: false})
-    .pipe(mocha());
+    .pipe(mocha())
+    .on('error', config.server.stop);
 });
 
 //浏览器测试
 gulp.task('test:browser', function () {
   util.log('[Test] 开始测试浏览器的调用');
   var stream = phantom({useColors: true});
-  stream.write({path: 'http://localhost:' + config.port + '/index.html'});
+  stream.write({path: 'http://localhost:' + config.server.port + '/index.html'});
   stream.on('data', util.log);
+  stream.on('error', config.server.stop);
   stream.end();
   return stream;
 });
