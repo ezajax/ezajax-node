@@ -16,6 +16,7 @@
 <script src="libs/angular.js"></script>
 <script src="eazyajax/angular-eazyajax.js"></script>
 <script src="angularjs/basic.js"></script>
+<script src="angularjs/with_args.js"></script>
 
 <script>
     if (typeof initMochaPhantomJS === 'function') {
@@ -25,9 +26,11 @@
 
     var myapp = angular.module('myapp', ['eazyajax']);
 
-    myapp.controller('MainCtrl', function ($scope, BasicService) {
+    myapp.controller('MainCtrl', function ($scope, BasicService, WithArgsService) {
         //基本测试
         BasicTest(BasicService, $scope);
+        //带参数测试
+        WithArgsTest(WithArgsService, $scope);
         mocha.run();
     });
 </script>

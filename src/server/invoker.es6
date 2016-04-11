@@ -19,7 +19,7 @@ export default function (req, res) {
 
     //参数不为空
     if (keyCount) {
-      if (isNaN(context.args[0])) {
+      if (!context.args.hasOwnProperty('eazyajax_arg_0')) {
         //基于参数命名的调用,用于APP的调用
         //获取到函数签名时候的参数
         var paramNames = getParams(context.method);
@@ -34,12 +34,11 @@ export default function (req, res) {
       } else {
         //基于位置的调用
         for (let key in context.args) {
-          args[parseInt(key)] = context.args[key];
+          if (context.args.hasOwnProperty(key))
+            args[parseInt(key.replace('eazyajax_arg_', ''))] = context.args[key];
         }
       }
     }
-    
-    console.log(args);
 
     //权限检查通过,开始调用函数
     let returnValue = context.method.apply(context, args);

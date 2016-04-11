@@ -22,10 +22,8 @@ var __angular_invoker = function($q,$http,moduleName,methodName,args){
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             transformRequest: function(data) {
                 var body = [];
-                var index = 0;
-                for(var prop in data){
-                    body.push(encodeURIComponent(index) + "=" + encodeURIComponent(JSON.stringify(data[prop])));
-                    index++;
+                for(var index = 0; index < data.length; index++){
+                    body.push(encodeURIComponent('eazyajax_arg_' + index) + "=" + encodeURIComponent(JSON.stringify(data[index])));
                 }
                 return body.join("&");
             },
