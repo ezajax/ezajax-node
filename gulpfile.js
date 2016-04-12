@@ -169,7 +169,13 @@ gulp.task('test:browser:angularjs', function () {
 
 //测试
 gulp.task('test', function (done) {
-  runSequence('build', 'test:start-test-server', 'test:http-client', 'test:browser:normal', 'test:browser:angularjs', 'test:stop-test-server', done);
+  runSequence(
+    'build',
+    'test:start-test-server', 'test:http-client', 'test:stop-test-server',
+    'test:start-test-server', 'test:browser:normal', 'test:stop-test-server',
+    'test:start-test-server', 'test:browser:angularjs', 'test:stop-test-server',
+    done
+  );
 });
 
 //清理文件
