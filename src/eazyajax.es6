@@ -26,9 +26,9 @@ var router = express.Router();
  * @param option                    选项
  * @returns {Promise.<Function>}    express中间件
  */
-export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root, file}) {
+export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), option = {}) {
   //参数初始化
-  root = root || 'eazyajax';
+  var root = option.root || 'eazyajax';
 
   //输出LOGO
   console.log(`
@@ -53,7 +53,7 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {roo
     `/${root}/:moduleName/:methodName.ac`,
     bodyParser.json(),
     bodyParser.urlencoded({extended: false}),
-    uploader(file),
+    uploader(option.file),
     contextInit,
     invokeCheck,
     permissionCheck,
