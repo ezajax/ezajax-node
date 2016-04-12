@@ -8,7 +8,6 @@ import bluebird from 'bluebird';
 import path from 'path';
 import util from 'util';
 
-import {D, W, E} from '../../utils/logger';
 import {getModules} from '../../container';
 
 var fs = bluebird.promisifyAll(require('fs'));
@@ -18,14 +17,6 @@ var jsCache;
 
 export default async function () {
   if (!jsCache) {
-    //加载第三方文件
-    var assetsLoadPromises = ['es5-shim', 'promise', 'json', 'ajax'].map((assetsName)=> {
-      return fs.readFileAsync(path.join(__dirname, '../assets', `${assetsName}.jsfile`));
-    });
-
-    //将加载的文件存入到变量中
-    var [es5ShimContent,promiseContent,jsonContent,ajaxContent] = (await Promise.all(assetsLoadPromises)).map(fileBuffer=>fileBuffer.toString());
-
     //从容器中读取已经加载的模块
     var modulesCache = getModules();
     //模块存根
@@ -63,26 +54,7 @@ export default async function () {
     var jsContent = templateCompiler({moduleStubs});
 
     //将内容拼接起来返回
-    jsCache = `/***********es5-shim.js***********/
-${es5ShimContent}
-/********es5-shim.js end**********/
-
-/***********promise.js************/
-${promiseContent}
-/**********promise.js end*********/
-
-/*************json.js*************/
-${jsonContent}
-/***********json.js end***********/
-
-/*************ajax.js*************/
-${ajaxContent}
-/***********ajax.js end***********/
-
-/***********invoker.js************/
-${jsContent}
-/**********invoker.js end*********/`;
+    jsCache = jsContent;
   }
-
   return jsCache;
 }

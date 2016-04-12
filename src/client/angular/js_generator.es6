@@ -8,7 +8,6 @@ import bluebird from 'bluebird';
 import path from 'path';
 import util from 'util';
 
-import {D, W, E} from '../../utils/logger';
 import {getModules} from '../../container';
 
 var fs = bluebird.promisifyAll(require('fs'));
@@ -55,9 +54,7 @@ export default async function () {
     var jsContent = templateCompiler({moduleStubs});
 
     //将内容拼接起来返回
-    jsCache = `/***********angular-eazyajax.js************/
-${jsContent}
-/**********angular-eazyajax end*********/`;
+    jsCache = jsContent;
   }
   return jsCache;
 }
