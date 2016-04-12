@@ -57,6 +57,7 @@
     "body-parser": "^1.14.2",
     "get-parameter-names": "^0.3.0",
     "handlebars": "^4.0.5",
-    "joi": "^7.2.1"
+    "joi": "^7.2.1",
+    "multer": "^1.1.0"
   }
 }

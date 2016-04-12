@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import {load} from './container';
 import jsHandler from './client/js_handler';
 
+import uploader from './server/uploader';
 import contextInit from './server/context_init';
 import invokeCheck from './server/invoke_check';
 import permissionCheck from './server/permission_check';
@@ -25,7 +26,9 @@ var router = express.Router();
  * @param option                    选项
  * @returns {Promise.<Function>}    express中间件
  */
-export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root} = {root: 'eazyajax'}) {
+export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {root, file}) {
+  //参数初始化
+  root = root || 'eazyajax';
 
   //输出LOGO
   console.log(`
@@ -50,6 +53,7 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), {roo
     `/${root}/:moduleName/:methodName.ac`,
     bodyParser.json(),
     bodyParser.urlencoded({extended: false}),
+    uploader(file),
     contextInit,
     invokeCheck,
     permissionCheck,

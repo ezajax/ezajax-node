@@ -21,7 +21,13 @@ export default function (req, res, next) {
     //获取调用信息
     var moduleName = req.params.moduleName;
     var methodName = req.params.methodName;
+
+    //处理请求参数
     var httpParams = Object.assign({}, req.query, req.body);
+    //合并文件内容到请求参数中
+    if (req.files)
+      for (var file of req.files)
+        httpParams[file.fieldname] = file;
 
     //时间解析器
     var dateParse = function (key, value) {
