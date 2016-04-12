@@ -6,7 +6,6 @@ import path from 'path';
 import express from 'express'
 import bodyParser from 'body-parser';
 
-import {D, W, E} from './utils/logger';
 import {load} from './container';
 import jsHandler from './client/js_handler';
 
