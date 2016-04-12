@@ -35,7 +35,7 @@ export function load(modulePath) {
 
         //检查模块是否已经被加载,也有可能是重名的情况
         if (moduleCache.has(moduleName)) {
-          logger.warn(`模块 ${moduleName} 已经被加载,请检查重名`);
+          console.log(`模块 ${moduleName} 已经被加载,无需再次加载`);
           return;
         }
 
