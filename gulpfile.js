@@ -30,6 +30,12 @@ config.static = [
   '!**/*_tmp___'
 ];
 
+//phantomjs设置
+config.phantomjs = {
+  useColors: true,
+  suppressStderr: true
+};
+
 //清理任务
 gulp.task('clean', function () {
   return gulp.src(config.dist + '/*', {read: false})
@@ -134,9 +140,13 @@ gulp.task('test:http-client', function () {
 //浏览器测试-通用情况
 gulp.task('test:browser:normal', function () {
   util.log('[Test] 开始测试normal.js的调用');
-  var stream = phantom({useColors: true});
+  var stream = phantom(config.phantomjs);
   stream.write({path: 'http://localhost:' + config.server.port + '/normal.html'});
-  stream.on('data', util.log);
+  stream.on('phantomjsStderrData', function (data) {
+    data = data.toString();
+    if (!/Internal Server Error/.match(data))
+      console.error(data);
+  });
   stream.on('error', config.server.stop);
   stream.end();
   return stream;
@@ -145,9 +155,13 @@ gulp.task('test:browser:normal', function () {
 //浏览器测试-angularjs
 gulp.task('test:browser:angularjs', function () {
   util.log('[Test] 开始测试angularjs的调用');
-  var stream = phantom({useColors: true});
+  var stream = phantom(config.phantomjs);
   stream.write({path: 'http://localhost:' + config.server.port + '/angularjs.html'});
-  stream.on('data', util.log);
+  stream.on('phantomjsStderrData', function (data) {
+    data = data.toString();
+    if (!/Internal Server Error/.match(data))
+      console.error(data);
+  });
   stream.on('error', config.server.stop);
   stream.end();
   return stream;
