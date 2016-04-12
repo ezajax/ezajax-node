@@ -24,7 +24,7 @@ config.babel = {
 config.static = [
   'package.json',
   'src/**/*.hbs',
-  'src/**/*.jsfile',
+  'src/client/assets/*',
   'example/web/**/*',
   'test/browser/**/*',
   '!**/*_tmp___'
