@@ -23,6 +23,7 @@ export default function (option) {
     //手动调用解析
     uploader(req, res, function (err) {
       if (err) {
+        res.statusCode = 500;
         res.send(JSON.stringify({
           code: -1,
           message: err.message
