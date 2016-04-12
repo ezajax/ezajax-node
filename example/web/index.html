@@ -1,29 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myapp">
+<html ng-app="example">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>EazyAjax</title>
-    <!--<script src="angular.js"></script>-->
-    <script src="eazyajax/normal.js"></script>
-    <script>
-//        var myapp = angular.module('myapp', ['eazyajax']);
-//
-//        myapp.controller('MainCtrl', function ($scope, TestService) {
-////            setInterval(function () {
-//            TestService.getTime(new Date()).then(function (returnValue) {
-//                $scope.returnValue = returnValue;
-//            }).catch(function (error) {
-//                console.log(error.code);
-//            });
-////            }, 10);
-//        });
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        TestAjax.getTime('test').then(function(value){
-            console.log(value);
-        })
-    </script>
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="libs/flat-ui/css/flat-ui.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="libs/html5shiv.js"></script>
+    <script src="libs/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body ng-controller="MainCtrl">
-时间: {{returnValue|date:'yyyy-MM-dd HH:mm:ss'}}
+<body>
+<div class="container" ng-controller="MainCtrl">
+    <h1 class="text-center">EazyAjax</h1>
+    <div class="text-center">现在时间： {{time|date:'yyyy-MM-dd HH:mm:ss'}}</div>
+</div>
+
+<script src="libs/jquery.min.js"></script>
+<script src="libs/flat-ui/js/flat-ui.min.js"></script>
+
+<!--AngualrJS-->
+<script src="libs/angularjs/angular.min.js"></script>
+<!--EazyAjax-->
+<script src="eazyajax/eazyajax.js"></script>
+
+<!--Modules-->
+<script>
+    var example = angular.module('example', ['eazyajax']);
+
+    example.controller('MainCtrl', function ($scope, TestService) {
+        TestService.getTime(new Date()).then(function (time) {
+            $scope.time = time;
+        });
+    });
+</script>
 </body>
 </html>
