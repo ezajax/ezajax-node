@@ -1,40 +1,30 @@
 /**
- * Created by demon on 16-4-11.
+ * Created by demon on 16/4/12.
  */
-describe('基本测试', function () {
-  it('没有返回值', function () {
-    return BasicAjax.getNone();
-  });
-
-  it('返回一个空', function (done) {
-    BasicAjax.getNull().then(function (value) {
-      value === null ? done() : done(new Error('返回值不为空'));
-    });
-  });
-
+describe('带参数测试', function () {
   it('返回一个布尔值', function (done) {
-    BasicAjax.getBoolean().then(function (value) {
+    WithArgsAjax.getBoolean(true).then(function (value) {
       value === false ? done() : done(new Error('返回值不为假'));
     });
   });
 
   it('返回一个数字', function (done) {
-    BasicAjax.getNumber().then(function (value) {
+    WithArgsAjax.getNumber(2.14).then(function (value) {
       value === 3.14 ? done() : done(new Error('返回值不为 3.14'));
     });
   });
 
   it('返回一个字符串', function (done) {
-    BasicAjax.getString().then(function (value) {
+    WithArgsAjax.getString('eazy').then(function (value) {
       value === 'eazyajax' ? done() : done(new Error('返回值不为"eazyajax"'));
     });
   });
 
   it('返回一个数组', function (done) {
-    BasicAjax.getArray().then(function (value) {
+    WithArgsAjax.getArray([1, 2, 3, 4]).then(function (value) {
       try {
         value.should.be.a.Array;
-        value.should.eql([1, 2, 3, 4, 'five', null]);
+        value.should.eql([1, 2, 3, 4, 'five']);
         done();
       } catch (err) {
         done(err);
@@ -43,7 +33,9 @@ describe('基本测试', function () {
   });
 
   it('返回一个对象', function (done) {
-    BasicAjax.getObject().then(function (value) {
+    WithArgsAjax.getObject({
+      name: 'eazyajax'
+    }).then(function (value) {
       try {
         value.should.be.a.Object;
         value.should.eql({
@@ -52,7 +44,7 @@ describe('基本测试', function () {
         });
         done();
       } catch (err) {
-        done(err);
+        done(err)
       }
     });
   });
