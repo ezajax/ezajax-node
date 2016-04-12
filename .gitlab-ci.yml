@@ -13,7 +13,7 @@ before_script:
 build:
   stage: build
   script:
-    - $GULP build-all
+    - $GULP
   tags:
     - node
 
@@ -25,11 +25,22 @@ test:
   tags:
     - node
 
-#发布到npm仓库
-publish:
+#发布example网站
+publish_example:
   stage: deploy
   script:
-    - $GULP build-core
+    - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js;git pull;dpm install;gulp'
+    - ssh eazyajax4js@bj.danwi.me 'cd eazyajax4js/dist/example;forever stop eazyajax4js;forever start -a --uid "eazyajax4js" ./index.js'
+  only:
+    - develop
+  tags:
+    - linux
+
+#发布到npm仓库
+publish_npm:
+  stage: deploy
+  script:
+    - $GULP
     - cd dist
     - npm publish
   only:

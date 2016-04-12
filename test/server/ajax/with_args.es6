@@ -8,7 +8,7 @@
  * @returns {boolean}
  */
 export function getBoolean(bool) {
-    return !bool;
+  return !bool;
 }
 
 /**
@@ -16,7 +16,7 @@ export function getBoolean(bool) {
  * @returns {number}    数字3.14
  */
 export function getNumber(num) {
-    return num + 1;
+  return num + 1;
 }
 
 /**
@@ -24,7 +24,7 @@ export function getNumber(num) {
  * @returns {string}    字符串'eazyajax'
  */
 export function getString(str) {
-    return str + 'ajax';
+  return str + 'ajax';
 }
 
 /**
@@ -32,10 +32,10 @@ export function getString(str) {
  * @returns {Promise}       数组[1, 2, 3, 4, 'five', null]
  */
 export function getArray(arr) {
-    return new Promise((resolve)=> {
-        arr[4] = 'five';
-        setTimeout(()=>resolve(arr), 20);
-    });
+  return new Promise((resolve)=> {
+    arr[4] = 'five';
+    setTimeout(()=>resolve(arr), 20);
+  });
 }
 
 /**
@@ -43,10 +43,10 @@ export function getArray(arr) {
  * @returns {Object}    对象
  */
 export function getObject(obj) {
-    return new Promise((resolve)=> {
-        obj.author = 'danwi';
-        setTimeout(()=>resolve(obj), 20);
-    });
+  return new Promise((resolve)=> {
+    obj.author = 'danwi';
+    setTimeout(()=>resolve(obj), 20);
+  });
 }
 
 /**
@@ -55,9 +55,9 @@ export function getObject(obj) {
  * @returns {Promise}
  */
 export function getDate(time) {
-    return new Promise((resolve)=> {
-        time.setFullYear(time.getFullYear() + 1);
-        setTimeout(()=>resolve(time), 20);
-    });
+  return new Promise((resolve)=> {
+    time.setFullYear(time.getFullYear() + 1);
+    setTimeout(()=>resolve(time), 20);
+  });
 }
 

@@ -9,14 +9,14 @@
  * @param password      密码
  */
 export function login(username, password) {
-    if (username === password) {
-        this.session.user = {
-            username,
-            password
-        };
-        this.session.user.role = username === 'admin' ? 'admin' : 'user';
-        return true;
-    }
+  if (username === password) {
+    this.session.user = {
+      username,
+      password
+    };
+    this.session.user.role = username === 'admin' ? 'admin' : 'user';
+    return true;
+  }
 
 }
 
@@ -24,6 +24,6 @@ export function login(username, password) {
  * 登出函数
  */
 export function logout() {
-    delete this.session.user;
+  delete this.session.user;
 }
 

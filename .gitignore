@@ -4,16 +4,7 @@
 
 #nodejs
 node_modules
-
-#babel compiled js
-index.js
-index.js.map
-src/**/*.js
-src/**/*.js.map
-example/**/*.js
-example/**/*.js.map
-test/**/*.js
-test/**/*.js.map
+npm-debug.log
 
 #coverage reporter
 coverage
@@ -21,5 +12,5 @@ coverage
 #gulp dist
 dist
 
-#排除掉web下面的ignore
-!example/web/**/*
+#排除test文件
+/test.es6

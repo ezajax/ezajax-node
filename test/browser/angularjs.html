@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>EazyAjax4js Browser Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="libs/mocha.css"/>
+</head>
+<body>
+<div id="mocha"></div>
+<div ng-controller="MainCtrl"></div>
+
+<script src="libs/should.js"></script>
+<script src="libs/mocha.js"></script>
+<script src="libs/angular.js"></script>
+<script src="eazyajax/angular-eazyajax.js"></script>
+<script src="angularjs/basic.js"></script>
+<script src="angularjs/with_args.js"></script>
+<script src="angularjs/throw_error.js"></script>
+
+<script>
+    if (typeof initMochaPhantomJS === 'function') {
+        initMochaPhantomJS()
+    }
+    mocha.setup('bdd');
+
+    var myapp = angular.module('myapp', ['eazyajax']);
+
+    myapp.controller('MainCtrl', function ($scope, BasicService, WithArgsService, ThrowErrorService) {
+        //基本测试
+        BasicTest(BasicService, $scope);
+        //带参数测试
+        WithArgsTest(WithArgsService, $scope);
+        //异常抓取测试
+        ThrowErrorTest(ThrowErrorService, $scope);
+        mocha.run();
+    });
+</script>
+</body>
+</html>

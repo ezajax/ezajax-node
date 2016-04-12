@@ -1,69 +1,26 @@
-//eazyajax 调用根路径
-var __scripts = []
-for(var index = 0;index < document.scripts.length;index++)
-    if(document.scripts[index].src !== '')
-        __scripts.push(document.scripts[index]);
-var __currentJSUrl = __scripts[__scripts.length - 1].src
-var __eazyajaxRoot = __currentJSUrl.substring(0, __currentJSUrl.lastIndexOf("/") + 1);
+//检查angularjs是否存在
+if(typeof angular === 'object'){
+    //angular js模块声明
+    var __eazyajaxModule = angular.module('eazyajax',[]);
 
-//angular js模块声明
-var __eazyajaxModule = angular.module('eazyajax',[]);
-
-//invoker方法,所有的调用实际由它来处理
-var __angular_invoker = function($q,$http,moduleName,methodName,args){
-    //构造url
-    var url = __eazyajaxRoot + moduleName + '/' + methodName + '.ac';
-    //返回一个承诺
-    return $q(function(resolve,reject){
-        $http({
-            method:'POST',
-            url:url,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            transformRequest: function(data) {
-                var body = [];
-                for(var prop in data)
-                    body.push(encodeURIComponent(prop) + "=" + encodeURIComponent(data[prop]));
-                return body.join("&");
-            },
-            data:{args:JSON.stringify(args)},
-            transformResponse:function(data){
-                //时间解析器
-                var dateParse = function (key, value) {
-                    if (typeof value === 'string') {
-                        var segments = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})\.(\d*)Z$/.exec(value);
-                        if (segments)
-                            return new Date(Date.UTC(+segments[1], +segments[2] - 1, +segments[3], +segments[4],+segments[5], +segments[6], +segments[7]));
-                    }
-                    return value;
-                };
-                //解析json
-                return JSON.parse(data,dateParse);
-            }
-        }).then(
-            function(res){
-                var json = res.data;
-
-                if(json.error){
-                    var error = new Error(json.error.message);
-                    error.code = json.error.code;
-                    reject(error);
-                }else{
-                    resolve(json.returnValue);
-                }
-            },
-            function(){
-                var error = new Error("Ajax调用异常");
-                error.code = -1;
-                reject(error);
-            }
-        );
-    });
-};
-
-{{#each moduleStubs as |module|}}
-    __eazyajaxModule.service('{{module.pascalcaseName}}Service',function($http,$q){
-        {{#each module.methods as |method|}}
-        this.{{method.name}} = function(){ return __angular_invoker($q,$http,'{{module.name}}','{{method.name}}',Array.prototype.slice.call(arguments)); };
-        {{/each}}
-    });
-{{/each}}
+    {{#each moduleStubs as |module|}}
+        __eazyajaxModule.service('{{module.pascalcaseName}}Service',function($q){
+            {{#each module.methods as |method|}}
+            this.{{method.name}} = function(){
+                var args = Array.prototype.slice.call(arguments);
+                return $q(function(resolve,reject){
+                    __eazyajax_invoker('{{module.name}}','{{method.name}}',args)
+                        .then(function(returnValue){
+                            resolve(returnValue);
+                        })
+                        .catch(function(error){
+                            reject(error);
+                        });
+                });
+            };
+            {{/each}}
+        });
+    {{/each}}
+}else{
+    console.warn('[EazyAjax] AngularJS不存在,所以没有挂载AngularJS调用的Services');
+}

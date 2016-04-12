@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>EazyAjax</title>
-    <script src="angular.js"></script>
-    <script src="eazyajax/angular-eazyajax.js"></script>
+    <!--<script src="angular.js"></script>-->
+    <script src="eazyajax/normal.js"></script>
     <script>
-        var myapp = angular.module('myapp', ['eazyajax']);
+//        var myapp = angular.module('myapp', ['eazyajax']);
+//
+//        myapp.controller('MainCtrl', function ($scope, TestService) {
+////            setInterval(function () {
+//            TestService.getTime(new Date()).then(function (returnValue) {
+//                $scope.returnValue = returnValue;
+//            }).catch(function (error) {
+//                console.log(error.code);
+//            });
+////            }, 10);
+//        });
 
-        myapp.controller('MainCtrl', function ($scope, TestService) {
-            setInterval(function () {
-                TestService.getName(new Date()).then(function (returnValue) {
-                    $scope.returnValue = returnValue.getSeconds();
-                });
-            },10);
-        });
+        TestAjax.getTime('test').then(function(value){
+            console.log(value);
+        })
     </script>
 </head>
 <body ng-controller="MainCtrl">
-{{returnValue}}
+时间: {{returnValue|date:'yyyy-MM-dd HH:mm:ss'}}
 </body>
 </html>
