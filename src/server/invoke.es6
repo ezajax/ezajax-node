@@ -2,14 +2,13 @@
  * Ajax调用器
  * Created by demon on 15/12/19.
  */
-import getParams from 'get-parameter-names';
 
 export default function (req, res) {
   try {
     var context = req.ezajax;
     
     //权限检查通过,开始调用函数
-    let returnValue = context.method.apply(context, args);
+    let returnValue = context.method.apply(context, context.args);
 
     //判断函数有没有返回值
     if (returnValue === undefined) {

@@ -8,6 +8,8 @@ import getParams from 'get-parameter-names'
 
 export default function (req, res, next) {
   try {
+    var context = req.ezajax;
+
     //处理从post,get上来的参数
     //如果存在字段重名multiparty的优先级最高,其次是普通的post,最后是get的url参数
     var httpArgs = Object.assign({}, req.query, req.body);
