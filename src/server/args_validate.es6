@@ -4,6 +4,7 @@
  */
 import joi from 'joi';
 import util from 'util';
+import getParams from 'get-parameter-names';
 
 export default function (req, res, next) {
   var context = req.ezajax;
@@ -15,13 +16,17 @@ export default function (req, res, next) {
 
     //遍历校验器
     for (var index = 0; index < schemas.length; index++) {
-      var value = context.args[index];
+      var name = context.args[index];
       var schema = schemas[index];
-      var vaild = joi.validate(value, schema, {convert: false});
+      var result = joi.validate(name, schema, {convert: false});
 
       //验证不通过
-      if (vaild.error) {
-        res.sendError(-4, vaild.error.message);
+      if (result.error) {
+        //获取到参数名
+        var paramNames = getParams(context.method);
+        var paramName = paramNames[index] || 'arg' + index;
+
+        res.sendError(-4, `[${paramName} valid fail] ${result.error.message.replace('"value"', '')}`);
         return;
       }
     }

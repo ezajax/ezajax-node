@@ -7,39 +7,7 @@ import getParams from 'get-parameter-names';
 export default function (req, res) {
   try {
     var context = req.ezajax;
-    var args = [];
-
-    //参数检查和位置重排
-    var keyCount = 0;
-    for (let key in context.args) {
-      if (context.args.hasOwnProperty(key)) {
-        keyCount++;
-      }
-    }
-
-    //参数不为空
-    if (keyCount) {
-      if (!context.args.hasOwnProperty('ezajax_arg_0')) {
-        //基于参数命名的调用,用于APP的调用
-        //获取到函数签名时候的参数
-        var paramNames = getParams(context.method);
-        for (var index = 0; index < paramNames.length; index++) {
-          //拿到参数名
-          var paramName = paramNames[index];
-          //找到对应的参数的值
-          var value = context.args[paramName];
-          //设置到对应位置的数组中
-          args[index] = value;
-        }
-      } else {
-        //基于位置的调用
-        for (let key in context.args) {
-          if (context.args.hasOwnProperty(key))
-            args[parseInt(key.replace('ezajax_arg_', ''))] = context.args[key];
-        }
-      }
-    }
-
+    
     //权限检查通过,开始调用函数
     let returnValue = context.method.apply(context, args);
 

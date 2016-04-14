@@ -9,12 +9,13 @@ import bodyParser from 'body-parser';
 import {load} from './container';
 import jsHandler from './client/js_handler';
 
-import uploader from './server/uploader';
 import contextInit from './server/context_init';
+import multipartyParse from './server/multiparty_parse';
 import invokeCheck from './server/invoke_check';
+import argsFormat from './server/args_format';
+import argsValidate from './server/args_validate';
 import permissionCheck from './server/permission_check';
-import validate from './server/validate';
-import invoker from './server/invoker';
+import invoke from './server/invoke';
 
 var router = express.Router();
 
@@ -53,12 +54,13 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), opti
     `/${root}/:moduleName/:methodName.ac`,
     bodyParser.json(),
     bodyParser.urlencoded({extended: false}),
-    uploader(option.file),
     contextInit,
+    multipartyParse(option.file),
     invokeCheck,
+    argsFormat,
+    argsValidate,
     permissionCheck,
-    validate,
-    invoker
+    invoke
   );
 
   //返回一个express中间件
