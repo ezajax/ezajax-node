@@ -28,7 +28,9 @@ export default function (req, res, next) {
     return false;
   }
 
-  //将模块和方法实力注入到上下文当中
+  //将模块和方法的实例注入到上下文当中
+  context.moduleName = moduleName;
+  context.methodName = methodName;
   context.module = modules.get(moduleName);
   context.method = context.module[methodName];
 
