@@ -27,3 +27,4 @@ module.exports = function (path, option) {
 //导出修饰器
 module.exports.permission = permission;
 module.exports.validate = validate;
+module.exports.should = validate.should;
