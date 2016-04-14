@@ -4,19 +4,25 @@ if(typeof angular === 'object'){
     var __ezajaxModule = angular.module('ezajax',[]);
 
     {{#each moduleStubs as |module|}}
-        __ezajaxModule.service('{{module.pascalcaseName}}Service',function($q){
+        __ezajaxModule.service('{{module.pascalcaseName}}Service',function($q, $rootScope){
             {{#each module.methods as |method|}}
             this.{{method.name}} = function(){
                 var args = Array.prototype.slice.call(arguments);
-                return $q(function(resolve,reject){
+                if (args.length > 0)
+                    if (typeof args[args.length - 1] === 'function') {
+                        var callback = args[args.length - 1];
+                        args.splice(args.length - 1, 1);
+                    }
+                if(callback)
                     __ezajax_invoker('{{module.name}}','{{method.name}}',args)
-                        .then(function(returnValue){
-                            resolve(returnValue);
-                        })
-                        .catch(function(error){
-                            reject(error);
-                        });
-                });
+                        .then(function(returnValue){ $rootScope.$apply(function(){ callback(null,returnValue); }); })
+                        .catch(function(error){ $rootScope.$apply(function(){ callback(error); }); });
+                else
+                    return $q(function(resolve,reject){
+                        __ezajax_invoker('{{module.name}}','{{method.name}}',args)
+                            .then(function(returnValue){ resolve(returnValue);})
+                            .catch(function(error){ reject(error); });
+                    });
             };
             {{/each}}
         });
