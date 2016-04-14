@@ -16,8 +16,8 @@ function WithArgsTest(WithArgsService, $scope) {
     });
 
     it('返回一个字符串', function (done) {
-      WithArgsService.getString('eazy').then(function (value) {
-        value === 'eazyajax' ? done() : done(new Error('返回值不为"eazyajax"'));
+      WithArgsService.getString('ez').then(function (value) {
+        value === 'ezajax' ? done() : done(new Error('返回值不为"ezajax"'));
       });
     });
 
@@ -35,12 +35,12 @@ function WithArgsTest(WithArgsService, $scope) {
 
     it('返回一个对象', function (done) {
       WithArgsService.getObject({
-        name: 'eazyajax'
+        name: 'ezajax'
       }).then(function (value) {
         try {
           value.should.be.a.Object;
           value.should.eql({
-            name: 'eazyajax',
+            name: 'ezajax',
             author: 'danwi'
           });
           done();

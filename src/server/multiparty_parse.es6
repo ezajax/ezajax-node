@@ -1,5 +1,5 @@
 /**
- * 文件上传中间件
+ * multiparty处理中间件
  * Created by demon on 16/4/12.
  */
 import multer from 'multer';
@@ -23,11 +23,7 @@ export default function (option) {
     //手动调用解析
     uploader(req, res, function (err) {
       if (err) {
-        res.statusCode = 500;
-        res.send(JSON.stringify({
-          code: -1,
-          message: err.message
-        }))
+        res.sendError(-1, err.message);
       } else {
         next();
       }

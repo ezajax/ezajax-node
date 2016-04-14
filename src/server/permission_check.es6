@@ -8,8 +8,8 @@ import {D, W, E} from '../utils/logger';
 export default async function (req, res, next) {
 
   try {
-    var module = req.eazyajax.module;
-    var method = req.eazyajax.method;
+    var module = req.ezajax.module;
+    var method = req.ezajax.method;
 
     var permissions = [];
 
@@ -31,7 +31,7 @@ export default async function (req, res, next) {
     var checkPromises = permissions.map((permission)=> {
       try {
         //调用权限验证函数
-        var returnValue = permission.apply(req.eazyajax, req.eazyajax.args);
+        var returnValue = permission.apply(req.ezajax, req.ezajax.args);
       } catch (error) {
         //如果调用过程中发生异常,可以认为返回了false
         return Promise.resolve(false);
@@ -59,7 +59,7 @@ export default async function (req, res, next) {
         }
       }
       //检查不通过,直接返回
-      res.sendError(-3, `你不具备调用方法 ${req.eazyajax.moduleName}.${req.eazyajax.methodName} 的权限`);
+      res.sendError(-3, `你不具备调用方法 ${req.ezajax.moduleName}.${req.ezajax.methodName} 的权限`);
       return false;
     }
 

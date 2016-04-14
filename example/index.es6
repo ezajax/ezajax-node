@@ -4,10 +4,9 @@
  */
 import http from 'http';
 import express from 'express';
-import path from 'path';
 import {D, W, E} from '../src/utils/logger';
 
-import eazyajax from '../index';
+import ezajax from '../index';
 
 (async function () {
   try {
@@ -17,8 +16,8 @@ import eazyajax from '../index';
     //设定静态映射
     app.use(express.static('web'));
 
-    //初始化eazyajax
-    app.use(eazyajax());
+    //初始化ezajax
+    app.use(ezajax());
 
     //初始化服务
     var port = 3001;

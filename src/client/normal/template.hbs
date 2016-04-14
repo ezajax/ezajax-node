@@ -9,7 +9,7 @@
                     var callback = args[args.length - 1];
                     args.splice(args.length - 1, 1);
                 }
-            var promise = __eazyajax_invoker('{{module.name}}','{{method.name}}',args);
+            var promise = __ezajax_invoker('{{module.name}}','{{method.name}}',args);
             //判断最后一个参数
             if(callback){
                 promise.then(function(returnValue){

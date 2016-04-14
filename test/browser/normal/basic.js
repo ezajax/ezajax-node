@@ -26,7 +26,7 @@ describe('基本测试', function () {
 
   it('返回一个字符串', function (done) {
     BasicAjax.getString().then(function (value) {
-      value === 'eazyajax' ? done() : done(new Error('返回值不为"eazyajax"'));
+      value === 'ezajax' ? done() : done(new Error('返回值不为"ezajax"'));
     });
   });
 
@@ -47,7 +47,7 @@ describe('基本测试', function () {
       try {
         value.should.be.a.Object;
         value.should.eql({
-          name: 'eazyajax',
+          name: 'ezajax',
           author: 'danwi'
         });
         done();

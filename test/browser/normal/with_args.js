@@ -15,8 +15,8 @@ describe('带参数测试', function () {
   });
 
   it('返回一个字符串', function (done) {
-    WithArgsAjax.getString('eazy').then(function (value) {
-      value === 'eazyajax' ? done() : done(new Error('返回值不为"eazyajax"'));
+    WithArgsAjax.getString('ez').then(function (value) {
+      value === 'ezajax' ? done() : done(new Error('返回值不为"ezajax"'));
     });
   });
 
@@ -34,12 +34,12 @@ describe('带参数测试', function () {
 
   it('返回一个对象', function (done) {
     WithArgsAjax.getObject({
-      name: 'eazyajax'
+      name: 'ezajax'
     }).then(function (value) {
       try {
         value.should.be.a.Object;
         value.should.eql({
-          name: 'eazyajax',
+          name: 'ezajax',
           author: 'danwi'
         });
         done();

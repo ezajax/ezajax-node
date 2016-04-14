@@ -44,11 +44,11 @@ export function getNumber() {
 
 /**
  * 返回一个字符串
- * @returns {Promise}    字符串'eazyajax'
+ * @returns {Promise}    字符串'ezajax'
  */
 export function getString() {
   return new Promise((resolve)=> {
-    setTimeout(()=>resolve('eazyajax'), 20);
+    setTimeout(()=>resolve('ezajax'), 20);
   });
 }
 
@@ -68,6 +68,6 @@ export function getArray() {
  */
 export function getObject() {
   return new Promise((resolve)=> {
-    setTimeout(()=>resolve({name: 'eazyajax', author: 'danwi'}), 20);
+    setTimeout(()=>resolve({name: 'ezajax', author: 'danwi'}), 20);
   });
 }

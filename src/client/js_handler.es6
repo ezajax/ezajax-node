@@ -22,7 +22,7 @@ export default async function (req, res, next) {
   try {
     //客户端JS请求的分发
     switch (fileName) {
-      case 'angular-eazyajax.js':
+      case 'angular-ezajax.js':
         res.contentType('text/javascript');
         var angularjsContent = await angularJSGenerator();
         res.send(`${commonJSContent}
@@ -44,7 +44,7 @@ ${normaljsContent}
         `);
         break;
 
-      case 'eazyajax.js':
+      case 'ezajax.js':
         res.contentType('text/javascript');
         var normaljsContent = await normalJSGenerator();
         var angularjsContent = await angularJSGenerator();

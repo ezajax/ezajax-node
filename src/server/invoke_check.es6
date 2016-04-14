@@ -11,22 +11,28 @@ import {getModules} from '../container';
 
 export default function (req, res, next) {
   var modules = getModules();
-  var context = req.eazyajax;
+  var context = req.ezajax;
+
+  //从请求中拿到需要调用的模块和方法名称
+  var {moduleName, methodName}= req.params;
 
   //检查模块是否存在
-  if (!modules.has(context.moduleName)) {
-    res.sendError(-2, `模块 ${context.moduleName} 找不到`);
+  if (!modules.has(moduleName)) {
+    res.sendError(-2, `模块 ${moduleName} 找不到`);
     return false;
   }
 
   //检查方法是否存在
-  if (!util.isFunction(modules.get(context.moduleName)[context.methodName])) {
-    res.sendError(-2, `方法 ${context.moduleName}.${context.methodName} 找不到`);
+  if (!util.isFunction(modules.get(moduleName)[methodName])) {
+    res.sendError(-2, `方法 ${moduleName}.${methodName} 找不到`);
     return false;
   }
 
-  context.module = modules.get(context.moduleName);
-  context.method = context.module[context.methodName];
+  //将模块和方法的实例注入到上下文当中
+  context.moduleName = moduleName;
+  context.methodName = methodName;
+  context.module = modules.get(moduleName);
+  context.method = context.module[methodName];
 
   return next();
 }
