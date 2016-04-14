@@ -36,10 +36,10 @@ export function getNumber() {
 
 /**
  * 返回一个字符串
- * @returns {string}    字符串'eazyajax'
+ * @returns {string}    字符串'ezajax'
  */
 export function getString() {
-  return 'eazyajax';
+  return 'ezajax';
 }
 
 /**
@@ -56,7 +56,7 @@ export function getArray() {
  */
 export function getObject() {
   return {
-    name: 'eazyajax',
+    name: 'ezajax',
     author: 'danwi'
   }
 }

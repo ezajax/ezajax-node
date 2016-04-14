@@ -11,7 +11,7 @@ import {getModules} from '../container';
 
 export default function (req, res, next) {
   var modules = getModules();
-  var context = req.eazyajax;
+  var context = req.ezajax;
 
   //检查模块是否存在
   if (!modules.has(context.moduleName)) {

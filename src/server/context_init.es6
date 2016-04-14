@@ -51,8 +51,8 @@ export default function (req, res, next) {
       httpParams[key] = value;
     }
 
-    //初始化eazyajax调用的context到req对象上
-    req.eazyajax = {req, res, session: req.session, moduleName, methodName, args: httpParams};
+    //初始化ezajax调用的context到req对象上
+    req.ezajax = {req, res, session: req.session, moduleName, methodName, args: httpParams};
 
   } catch (error) {
     res.sendError(-1, error.message);

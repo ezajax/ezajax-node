@@ -2,11 +2,12 @@
 <html ng-app="example">
 <head>
     <meta charset="utf-8">
-    <title>EazyAjax</title>
+    <title>EzAjax</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="libs/flat-ui/css/flat-ui.min.css" rel="stylesheet">
+    <link href="libs/animate.min.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="libs/html5shiv.js"></script>
@@ -15,7 +16,7 @@
 </head>
 <body>
 <div class="container" ng-controller="MainCtrl">
-    <h1 class="text-center">EazyAjax</h1>
+    <h1 class="text-center">EzAjax</h1>
     <div class="text-center">现在时间： {{time|date:'yyyy-MM-dd HH:mm:ss'}}</div>
 </div>
 
@@ -24,12 +25,12 @@
 
 <!--AngualrJS-->
 <script src="libs/angularjs/angular.min.js"></script>
-<!--EazyAjax-->
-<script src="eazyajax/eazyajax.js"></script>
+<!--EzAjax-->
+<script src="ezajax/ezajax.js"></script>
 
 <!--Modules-->
 <script>
-    var example = angular.module('example', ['eazyajax']);
+    var example = angular.module('example', ['ezajax']);
 
     example.controller('MainCtrl', function ($scope, TestService) {
         TestService.getTime(new Date()).then(function (time) {

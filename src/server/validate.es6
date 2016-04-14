@@ -6,7 +6,7 @@ import joi from 'joi';
 import util from 'util';
 
 export default function (req, res, next) {
-  var context = req.eazyajax;
+  var context = req.ezajax;
 
   var schemas = context.method.validate;
 

@@ -6,7 +6,7 @@ import getParams from 'get-parameter-names';
 
 export default function (req, res) {
   try {
-    var context = req.eazyajax;
+    var context = req.ezajax;
     var args = [];
 
     //参数检查和位置重排
@@ -19,7 +19,7 @@ export default function (req, res) {
 
     //参数不为空
     if (keyCount) {
-      if (!context.args.hasOwnProperty('eazyajax_arg_0')) {
+      if (!context.args.hasOwnProperty('ezajax_arg_0')) {
         //基于参数命名的调用,用于APP的调用
         //获取到函数签名时候的参数
         var paramNames = getParams(context.method);
@@ -35,7 +35,7 @@ export default function (req, res) {
         //基于位置的调用
         for (let key in context.args) {
           if (context.args.hasOwnProperty(key))
-            args[parseInt(key.replace('eazyajax_arg_', ''))] = context.args[key];
+            args[parseInt(key.replace('ezajax_arg_', ''))] = context.args[key];
         }
       }
     }

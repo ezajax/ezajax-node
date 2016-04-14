@@ -21,7 +21,7 @@ export function getNumber(num) {
 
 /**
  * 返回一个字符串
- * @returns {string}    字符串'eazyajax'
+ * @returns {string}    字符串'ezajax'
  */
 export function getString(str) {
   return str + 'ajax';

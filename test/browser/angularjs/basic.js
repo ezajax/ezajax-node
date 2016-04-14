@@ -27,7 +27,7 @@ function BasicTest(BasicService, $scope) {
 
     it('返回一个字符串', function (done) {
       BasicService.getString().then(function (value) {
-        value === 'eazyajax' ? done() : done(new Error('返回值不为"eazyajax"'));
+        value === 'ezajax' ? done() : done(new Error('返回值不为"ezajax"'));
       });
     });
 
@@ -48,7 +48,7 @@ function BasicTest(BasicService, $scope) {
         try {
           value.should.be.a.Object;
           value.should.eql({
-            name: 'eazyajax',
+            name: 'ezajax',
             author: 'danwi'
           });
           done();

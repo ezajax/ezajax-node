@@ -8,7 +8,7 @@ import session from 'express-session';
 import path from 'path';
 import http from 'http';
 
-import eazyajax from '../../index';
+import ezajax from '../../index';
 
 var server;
 var timer;
@@ -28,13 +28,13 @@ export async function start() {
 
     //初始化session
     app.use(session({
-      secret: 'eazyajax',
+      secret: 'ezajax',
       resave: false,
       saveUninitialized: true
     }));
 
-    //初始化eazyajax
-    app.use(eazyajax(path.join(__dirname, 'ajax')));
+    //初始化ezajax
+    app.use(ezajax(path.join(__dirname, 'ajax')));
 
     server = http.createServer(app);
 

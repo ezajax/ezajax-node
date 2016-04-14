@@ -1,28 +1,28 @@
 /**
- * EazyAjax调用者
+ * ezajax调用者
  * Created by demon on 16/4/12.
  */
-//eazyajax 调用根路径
+//ezajax 调用根路径
 var __scripts = [];
 for (var index = 0; index < document.scripts.length; index++)
   if (document.scripts[index].src !== '')
     __scripts.push(document.scripts[index]);
 var __currentJSUrl = __scripts[__scripts.length - 1].src
-var __eazyajaxRoot = __currentJSUrl.substring(0, __currentJSUrl.lastIndexOf("/") + 1);
+var __ezajaxRoot = __currentJSUrl.substring(0, __currentJSUrl.lastIndexOf("/") + 1);
 
 //invoker方法,所有的调用实际由它来处理
-var __eazyajax_invoker = function (moduleName, methodName, argsArray) {
+var __ezajax_invoker = function (moduleName, methodName, argsArray) {
   //构造url
-  var url = __eazyajaxRoot + moduleName + '/' + methodName + '.ac';
+  var url = __ezajaxRoot + moduleName + '/' + methodName + '.ac';
 
   var args = {};
 
   for (var index = 0; index < argsArray.length; index++) {
-    args['eazyajax_arg_' + index] = encodeURIComponent(JSON.stringify(argsArray[index]));
+    args['ezajax_arg_' + index] = encodeURIComponent(JSON.stringify(argsArray[index]));
   }
 
   var promise = new Promise(function (resolve, reject) {
-    __eazyajax({
+    __ezajax({
       url: url,
       method: 'POST',
       data: args,

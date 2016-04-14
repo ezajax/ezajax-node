@@ -1,15 +1,15 @@
 //检查angularjs是否存在
 if(typeof angular === 'object'){
     //angular js模块声明
-    var __eazyajaxModule = angular.module('eazyajax',[]);
+    var __ezajaxModule = angular.module('ezajax',[]);
 
     {{#each moduleStubs as |module|}}
-        __eazyajaxModule.service('{{module.pascalcaseName}}Service',function($q){
+        __ezajaxModule.service('{{module.pascalcaseName}}Service',function($q){
             {{#each module.methods as |method|}}
             this.{{method.name}} = function(){
                 var args = Array.prototype.slice.call(arguments);
                 return $q(function(resolve,reject){
-                    __eazyajax_invoker('{{module.name}}','{{method.name}}',args)
+                    __ezajax_invoker('{{module.name}}','{{method.name}}',args)
                         .then(function(returnValue){
                             resolve(returnValue);
                         })
@@ -22,5 +22,5 @@ if(typeof angular === 'object'){
         });
     {{/each}}
 }else{
-    console.warn('[EazyAjax] AngularJS不存在,所以没有挂载AngularJS调用的Services');
+    console.warn('[EzAjax] AngularJS不存在,所以没有挂载AngularJS调用的Services');
 }
