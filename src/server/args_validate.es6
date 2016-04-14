@@ -26,7 +26,7 @@ export default function (req, res, next) {
         var paramNames = getParams(context.method);
         var paramName = paramNames[index] || 'arg' + index;
 
-        res.sendError(-4, `[${paramName} valid fail] ${result.error.message.replace('"value"', '')}`);
+        res.sendError(-4, `${paramName} is invalid, ${result.error.message.replace('"value"', 'it')}`);
         return;
       }
     }
