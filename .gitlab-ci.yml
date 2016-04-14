@@ -29,8 +29,8 @@ test:
 publish_example:
   stage: deploy
   script:
-    - ssh ezajax@bj.danwi.me 'cd ezajax;git pull;dpm install;gulp'
-    - ssh ezajax@bj.danwi.me 'cd ezajax/dist/example;forever stop ezajax;forever start -a --uid "ezajax" ./index.js'
+    - ssh ezajax@bj.danwi.me 'cd ezajax-node;git pull;dpm install;gulp'
+    - ssh ezajax@bj.danwi.me 'cd ezajax-node/dist/example;forever stop ezajax;forever start -a --uid "ezajax" ./index.js'
   only:
     - develop
   tags:
