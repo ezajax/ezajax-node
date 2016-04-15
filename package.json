@@ -1,6 +1,6 @@
 {
   "name": "ezajax",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "a framework for browser js invoke nodejs method on server",
   "main": "index.js",
   "scripts": {
@@ -58,6 +58,7 @@
     "get-parameter-names": "^0.3.0",
     "handlebars": "^4.0.5",
     "joi": "^7.2.1",
-    "multer": "^1.1.0"
+    "multer": "^1.1.0",
+    "uglify-js": "^2.6.2"
   }
 }
