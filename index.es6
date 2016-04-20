@@ -6,6 +6,7 @@
 import ezajax from './src/ezajax';
 import util from 'util';
 import permission from './src/server/decorators/permission';
+import params from './src/server/decorators/params';
 var validate = require('./src/server/decorators/validate');
 
 /**
@@ -26,5 +27,6 @@ module.exports = function (path, option) {
 
 //导出修饰器
 module.exports.permission = permission;
+module.exports.params = params;
 module.exports.validate = validate;
 module.exports.should = validate.should;

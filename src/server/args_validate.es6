@@ -23,7 +23,7 @@ export default function (req, res, next) {
       //验证不通过
       if (result.error) {
         //获取到参数名
-        var paramNames = getParams(context.method);
+        var paramNames = context.method.paramNames || getParams(context.method);
         var paramName = paramNames[index] || 'arg' + index;
 
         res.sendError(-4, `${paramName} is invalid, ${result.error.message.replace('"value"', 'it')}`);
