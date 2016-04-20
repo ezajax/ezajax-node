@@ -45,7 +45,7 @@ export default function (req, res, next) {
     if (!httpArgs.hasOwnProperty('ezajax_arg_0')) {
       //基于参数命名的调用,用于APP的调用
       //获取到函数签名时候的参数
-      var paramNames = getParams(context.method);
+      var paramNames = context.method.paramNames || getParams(context.method);
       for (var index = 0; index < paramNames.length; index++) {
         //拿到参数名
         var paramName = paramNames[index];
