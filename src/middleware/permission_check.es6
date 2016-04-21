@@ -3,7 +3,7 @@
  * Created by demon on 15/12/20.
  */
 import util from 'util';
-import {D, W, E} from '../utils/logger';
+import {D, W, E} from '../util/logger';
 
 export default async function (req, res, next) {
 

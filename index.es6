@@ -5,9 +5,9 @@
 
 import ezajax from './src/ezajax';
 import util from 'util';
-import permission from './src/server/decorators/permission';
-import params from './src/server/decorators/params';
-var validate = require('./src/server/decorators/validate');
+import permission from './src/decorator/permission';
+import params from './src/decorator/params';
+var validate = require('./src/decorator/validate');
 
 /**
  * 包装方法,将ezajax包装一下共外部使用

@@ -4,6 +4,7 @@ var clean = require('gulp-clean');
 var mocha = require('gulp-mocha');
 var print = require('gulp-print');
 var phantom = require('gulp-mocha-phantomjs');
+var sourcemaps = require('gulp-sourcemaps')
 var watch = require('gulp-watch');
 var runSequence = require('run-sequence');
 var util = require('gulp-util');
@@ -16,8 +17,7 @@ config.dist = 'dist';
 
 //babel配置
 config.babel = {
-  plugins: ['transform-runtime', 'transform-decorators-legacy'],
-  presets: ['es2015', 'stage-0']
+  presets: ['danwi']
 };
 
 //静态资源
@@ -44,15 +44,22 @@ gulp.task('clean', function () {
 
 //编译脚本
 gulp.task('compile', function () {
-  return gulp.src('**/*.es6', {base: './'})
-    .pipe(babel(config.babel))
-    .pipe(gulp.dest(config.dist));
+  if (config.babel.sourceMaps)
+    return gulp.src('**/*.es6', {base: './'})
+      .pipe(sourcemaps.init())
+      .pipe(babel(config.babel))
+      .pipe(sourcemaps.write('.', {sourceRoot: '/ezajax'}))
+      .pipe(gulp.dest(config.dist));
+  else
+    return gulp.src('**/*.es6', {base: './'})
+      .pipe(babel(config.babel))
+      .pipe(gulp.dest(config.dist));
 });
 
 //实时编译脚本
 gulp.task('compile:dev', ()=> {
-  // generate sourcemap in file, just for debug
-  config.babel.sourceMaps = 'inline';
+  // generate sourcemap, just for debug
+  config.babel.sourceMaps = true;
 
   return runSequence(
     'compile',
@@ -62,8 +69,10 @@ gulp.task('compile:dev', ()=> {
         if (obj.event === 'change' || obj.event === 'add') {
           util.log('[Babel] file compiling: ' + obj.path.replace(obj.base, ''));
           return gulp.src(obj.path, {base: './'})
+            .pipe(sourcemaps.init())
             .pipe(babel(config.babel))
             .on('error', err => util.log('[Babel] compile error: ' + obj.path.replace(obj.base, '') + '\n' + err))
+            .pipe(sourcemaps.write('.', {sourceRoot: '/ezajax'}))
             .pipe(gulp.dest(config.dist))
             .pipe(print(()=> '[Babel] file compiled: ' + obj.path.replace(obj.base, '')));
         } else if (obj.event === 'unlink') {
