@@ -17,8 +17,7 @@ config.dist = 'dist';
 
 //babel配置
 config.babel = {
-  plugins: ['transform-runtime', 'transform-decorators-legacy'],
-  presets: ['es2015', 'stage-0']
+  presets: ['danwi']
 };
 
 //静态资源
