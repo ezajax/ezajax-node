@@ -41,15 +41,36 @@ export function load(modulePath) {
 
         //加载模块
         var jsModule = require(modulePath);
+        //获取到默认模块
+        jsModule = jsModule.default || jsModule;
+
+        //方法名
+        var module = {};
+
+        //拿到所有的静态方法(属性方法)
+        for (let staticMethodName of Object.getOwnPropertyNames(jsModule)) {
+          if (util.isFunction(jsModule[staticMethodName]))
+            module[staticMethodName] = jsModule[staticMethodName];
+        }
+
+        //判断模块是不是一个类,如果是,则拿到所有的成员方法
+        if (util.isFunction(jsModule)) {
+          var instance = new jsModule();
+          for (let memberMethodName of Object.getOwnPropertyNames(Object.getPrototypeOf(instance))) {
+            if (util.isFunction(instance[memberMethodName]) && memberMethodName != 'constructor')
+              module[memberMethodName] = instance[memberMethodName];
+          }
+        }
+
         //存入模块
-        moduleCache.set(moduleName, jsModule);
+        moduleCache.set(moduleName, module);
 
         //输出模块图谱
         console.log(`+--+-- ${moduleName} 模块`);
         //D(`   |`);
-        for (let key in jsModule) {
-          if (util.isFunction(jsModule[key])) {
-            console.log(`   |-- ${key}(${jsModule[key].paramNames || getParams(jsModule[key])})`);
+        for (let key in module) {
+          if (util.isFunction(module[key])) {
+            console.log(`   |-- ${key}(${module[key].paramNames || getParams(module[key])})`);
           }
         }
         console.log('   ^');
