@@ -4,7 +4,7 @@
  */
 import http from 'http';
 import express from 'express';
-import {D, W, E} from '../src/utils/logger';
+import {D, W, E} from '../src/util/logger';
 
 import ezajax from '../index';
 

@@ -9,13 +9,13 @@ import bodyParser from 'body-parser';
 import {load} from './container';
 import jsHandler from './client/js_handler';
 
-import contextInit from './server/context_init';
-import multipartyParse from './server/multiparty_parse';
-import invokeCheck from './server/invoke_check';
-import argsFormat from './server/args_format';
-import argsValidate from './server/args_validate';
-import permissionCheck from './server/permission_check';
-import invoke from './server/invoke';
+import contextInit from './middleware/context_init';
+import multipartyParse from './middleware/multiparty_parse';
+import invokeCheck from './middleware/invoke_check';
+import argsFormat from './middleware/args_format';
+import argsValidate from './middleware/args_validate';
+import permissionCheck from './middleware/permission_check';
+import invoke from './middleware/invoke';
 
 var router = express.Router();
 
