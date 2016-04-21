@@ -143,6 +143,7 @@ export function init(rootPath) {
     if (process.env.NODE_ENV != 'production') {
       watchTree(rootPath, {
         ignoreDotFiles: true,
+        persistent: false,
         filter: filepath => /^.+\.js$/.test(filepath)
       }, (filePath, curr, prev) => {
         if (typeof filePath == "object" && prev === null && curr === null) {
