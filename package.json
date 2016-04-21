@@ -60,6 +60,7 @@
     "handlebars": "^4.0.5",
     "joi": "^7.2.1",
     "multer": "^1.1.0",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.2",
+    "watch": "^0.17.1"
   }
 }

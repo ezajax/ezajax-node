@@ -6,7 +6,7 @@ import path from 'path';
 import express from 'express'
 import bodyParser from 'body-parser';
 
-import {load} from './container';
+import {init as containerInit} from './container';
 import jsHandler from './client/js_handler';
 
 import contextInit from './middleware/context_init';
@@ -43,7 +43,7 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), opti
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++`);
 
   //加载和扫描模块
-  load(ajaxModuleRoot);
+  containerInit(ajaxModuleRoot);
   console.log('模块加载完毕!\n');
 
   //注册JS文件处理器
