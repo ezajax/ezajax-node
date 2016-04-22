@@ -74,7 +74,7 @@ gulp.task('compile:dev', ()=> {
             .on('error', err => util.log('[Babel] compile error: ' + obj.path.replace(obj.base, '') + '\n' + err))
             .pipe(sourcemaps.write('.', {sourceRoot: '/ezajax'}))
             .pipe(gulp.dest(config.dist))
-            .pipe(print(()=> '[Babel] file compiled: ' + obj.path.replace(obj.base, '')));
+            .on('end', ()=>util.log('[Babel] file compiled: ' + obj.path.replace(obj.base, '')));
         } else if (obj.event === 'unlink') {
           var distFilePath = obj.path.replace(__dirname, __dirname + '/' + config.dist).replace('.es6', '.js');
           return gulp.src(distFilePath)
