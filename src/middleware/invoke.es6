@@ -6,7 +6,7 @@
 export default function (req, res) {
   try {
     var context = req.ezajax;
-    
+
     //权限检查通过,开始调用函数
     let returnValue = context.method.apply(context, context.args);
 
@@ -24,10 +24,9 @@ export default function (req, res) {
         returnValue.then((value)=> {
           res.sendReturnValue(value);
         }).catch((error)=> {
-          if (error.code == null)
-            error.code = -5;
-          if (error.message == null || error.message == '')
-            error.message = '未知错误';
+          error.code = error.code || -5;
+          error.code = isNaN(error.code) ? -5 : error.code;
+          error.message = error.message || '未知错误';
           res.sendError(error.code, error.message);
         });
       } else {
@@ -36,10 +35,9 @@ export default function (req, res) {
       }
     }
   } catch (error) {
-    if (error.code == null)
-      error.code = -5;
-    if (error.message == null || error.message == '')
-      error.message = '未知错误';
+    error.code = error.code || -5;
+    error.code = isNaN(error.code) ? -5 : error.code;
+    error.message = error.message || '未知错误';
     res.sendError(error.code, error.message);
   }
 }
