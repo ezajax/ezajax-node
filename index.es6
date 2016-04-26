@@ -2,7 +2,8 @@
  * Module initer and Modules exporter
  * Created by demon on 15-12-17.
  */
-
+//需要最新引用的,因为里面包含了全局操作
+require('./src/util/error');
 import ezajax from './src/ezajax';
 import util from 'util';
 import permission from './src/decorator/permission';
