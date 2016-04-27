@@ -33,9 +33,11 @@
     var example = angular.module('example', ['ezajax']);
 
     example.controller('MainCtrl', function ($scope, TestService) {
+      setInterval(function(){
         TestService.getTime(new Date()).then(function (time) {
             $scope.time = time;
         });
+      },500);
     });
 </script>
 </body>
