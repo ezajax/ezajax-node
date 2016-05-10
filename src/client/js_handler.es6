@@ -16,6 +16,13 @@ var fs = bluebird.promisifyAll(require('fs'));
 //js缓存
 var jsCache;
 
+/**
+ * 清除JS Cache缓存
+ */
+export function clearCache() {
+  jsCache = null;
+}
+
 export default async function (req, res) {
   try {
     //拿到文件名,用来做区别分发

@@ -8,6 +8,7 @@ import path from "path";
 import util from "util";
 import {watchTree} from "watch"
 import getParams from "get-parameter-names";
+import { clearCache as clearJSCahce } from './client/js_handler';
 var fs = bluebird.promisifyAll(require('fs'));
 
 //ajax模块缓存
@@ -156,6 +157,9 @@ export function init(rootPath) {
           unload(filePath);
           load(filePath)
         }
+
+        //刷新JS缓存
+        clearJSCahce();
       });
     }
 
