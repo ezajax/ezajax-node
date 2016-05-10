@@ -52,6 +52,11 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), opti
   //注册ajax调用处理器
   router.use(
     `/${root}/:moduleName/:methodName.ac`,
+    (req, res, next) => {
+      if (option.cors)
+        res.append('Access-Control-Allow-Origin', option.cors)
+      next();
+    },
     bodyParser.json(),
     bodyParser.urlencoded({extended: false}),
     contextInit,
