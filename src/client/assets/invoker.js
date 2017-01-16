@@ -18,7 +18,7 @@ var __ezajax_invoker = function (moduleName, methodName, argsArray) {
   var args = {};
 
   for (var index = 0; index < argsArray.length; index++) {
-    args['ezajax_arg_' + index] = encodeURIComponent(JSON.stringify(argsArray[index]));
+    args['_arg_' + index] = encodeURIComponent(JSON.stringify(argsArray[index]));
   }
 
   var promise = new Promise(function (resolve, reject) {
