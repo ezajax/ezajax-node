@@ -2,6 +2,7 @@
 a middleware which let broswer js or http client can invoke server method
 
 # Chart
+```html
 .
 |____.git
 | |____config
@@ -166,3 +167,4 @@ a middleware which let broswer js or http client can invoke server method
 | | | |____validate.es6
 | | | |____with_args.es6
 | | |____index.es6
+```
