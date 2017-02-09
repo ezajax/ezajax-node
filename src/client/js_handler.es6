@@ -150,7 +150,7 @@ async function generatorCommonJS() {
   var assetsLoadPromises = ['promise', 'json', 'ajax', 'invoker'].map(assetsName => fs.readFileAsync(path.join(__dirname, './assets', `${assetsName}.js`)));
 
   //将加载的文件存入到变量中
-  var [es5ShimContent,promiseContent,jsonContent,ajaxContent,invokerContent] = (await Promise.all(assetsLoadPromises)).map(fileBuffer=>fileBuffer.toString());
+  var [promiseContent,jsonContent,ajaxContent,invokerContent] = (await Promise.all(assetsLoadPromises)).map(fileBuffer=>fileBuffer.toString());
 
   //将内容拼接起来返回
   return `/***********promise.js************/
