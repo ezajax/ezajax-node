@@ -147,17 +147,13 @@ ${await generatorTemplateJS(path.join(__dirname, 'normal_template.hbs'))}
  */
 async function generatorCommonJS() {
   //加载第三方文件
-  var assetsLoadPromises = ['es5-shim', 'promise', 'json', 'ajax', 'invoker'].map(assetsName => fs.readFileAsync(path.join(__dirname, './assets', `${assetsName}.js`)));
+  var assetsLoadPromises = ['promise', 'json', 'ajax', 'invoker'].map(assetsName => fs.readFileAsync(path.join(__dirname, './assets', `${assetsName}.js`)));
 
   //将加载的文件存入到变量中
   var [es5ShimContent,promiseContent,jsonContent,ajaxContent,invokerContent] = (await Promise.all(assetsLoadPromises)).map(fileBuffer=>fileBuffer.toString());
 
   //将内容拼接起来返回
-  return `/***********es5-shim.js***********/
-${es5ShimContent}
-/********es5-shim.js end**********/
-
-/***********promise.js************/
+  return `/***********promise.js************/
 ${promiseContent}
 /**********promise.js end*********/
 
