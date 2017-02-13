@@ -1,0 +1,23 @@
+language: node_js
+cache: yarn
+
+before_script:
+- npm install -g gulp
+
+script:
+- gulp clean
+- gulp test
+
+before_deploy:
+  - cd dist
+
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: admin@danwi.me
+  api_key:
+    secure: uSKTbD0i28coSx7hdJfMwo5NkgbGzNMSkQ2b8KOzv9urZF1+3XQwa/g6wE4GXSLYu0333LnPpoXsLpchS1Y46TbhKaVReRq5OIdKxCb3ENJkmebrBmHqDd25/LKGH9NPB4B42+wqdKyMW4YvS3tXK83B4mEnVb2JsnxGnHhOSSlPhQ1KebzocfsNy0ncMNwh6ckozHT8XtizkrexwCMfNi1cuYHXRChjxsSPAWXKvodL+tUTgFAxxC+F3XX4CBAoI/8CTyPiGBxp+FHVGYyqor5ylXJREaVoBVsLb2jkOvrPwGtVGMZgz0HSQxiambKXp0g7uvol7CL7nqLdnAcxdMn1+deyt11zIx8M40+EKwWMFeEFZ+ZRqZON46dv/ZPZbP2IbA+SeOax27TaR5ijJieEA5Up/i9RM94XFkcUhBgJZfqVtoSmUYIFX10yBT8C44QM7yxyoLrPoQaee7x1YWX/oJPEnsBApX2FiZT07dz1wHps66PFXErJCsnRfT9PgsDm7quKtgO6gqQNgwu3/c83VD1BNhPWYZv42aJUAOSTbqEPZYLGJGlD7SsvmL4eo5iOGKhIZmyfODrF2gKJVRbIbw/3cbBzOFHWLtnVwCOipJKOi3edhHhXgNkqKLvirxwAzcZcJE9FpPO8tCkqM4Ftc/lMwmRDFm7JBZ9n29o=
+  on:
+    branch: master
+    tags: true
+    repo: ezajax/ezajax-node
