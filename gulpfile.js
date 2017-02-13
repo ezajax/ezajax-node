@@ -153,7 +153,7 @@ gulp.task('test:browser:normal', function () {
   stream.write({path: 'http://localhost:' + config.server.port + '/normal.html'});
   stream.on('phantomjsStderrData', function (data) {
     data = data.toString();
-    if (!/Internal Server Error/.match(data))
+    if (!data.match(/Internal Server Error/))
       console.error(data);
   });
   stream.on('error', config.server.stop);
@@ -168,7 +168,7 @@ gulp.task('test:browser:angularjs', function () {
   stream.write({path: 'http://localhost:' + config.server.port + '/angularjs.html'});
   stream.on('phantomjsStderrData', function (data) {
     data = data.toString();
-    if (!/Internal Server Error/.match(data))
+    if (!data.match(/Internal Server Error/))
       console.error(data);
   });
   stream.on('error', config.server.stop);
