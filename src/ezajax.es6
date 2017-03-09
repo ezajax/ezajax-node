@@ -43,9 +43,17 @@ export default function (ajaxModuleRoot = path.join(process.cwd(), 'ajax'), opti
   router.use(
     `/${root}/:moduleName/:methodName.ac`,
     (req, res, next) => {
-      if (option.cors)
-        res.append('Access-Control-Allow-Origin', option.cors)
-      next();
+      if (req.method == 'OPTIONS') {  //直接通过 跨域请求检测
+        res.header('Access-Control-Allow-Origin', option.cors);
+        res.header('Access-Control-Allow-Headers', 'AUTH-TOKEN');
+        res.send(true);
+      } else {
+        if (option.cors) {
+          res.header('Access-Control-Allow-Origin', option.cors);//跨域 允许的域名（可以 逗号隔开）
+          res.header('Access-Control-Allow-Headers', 'AUTH-TOKEN');
+        }
+        next();
+      }
     },
     bodyParser.json(),
     bodyParser.urlencoded({extended: false}),
