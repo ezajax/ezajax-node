@@ -4,7 +4,7 @@ node_js:
 cache: yarn
 
 before_script:
-- npm install -g gulp
+- yarn global add gulp
 
 script:
 - gulp clean

@@ -14,3 +14,8 @@ dist
 
 #排除test文件
 /test.es6
+
+#github pages
+_site
+.sass-cache
+.jekyll-metadata

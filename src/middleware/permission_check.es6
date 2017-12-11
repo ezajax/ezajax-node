@@ -38,7 +38,7 @@ export default async function (req, res, next) {
       }
 
       //判断返回值的类型
-      if (returnValue.then) {
+      if (returnValue && returnValue.then) {
         //如果是承诺
         return new Promise((resolve)=> {
           returnValue.then((value)=>resolve(value)).catch(()=> resolve(false));
