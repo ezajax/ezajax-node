@@ -1,6 +1,6 @@
 {
   "name": "ezajax",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "a framework for browser js invoke nodejs method on server",
   "main": "index.js",
   "scripts": {
